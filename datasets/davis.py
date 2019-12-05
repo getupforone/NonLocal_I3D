@@ -4,6 +4,8 @@ import torch
 import torch.utils.data
 
 import utils.logging as logging
+import datasets.sample as smpl
+import datasets.transform as transform
 
 
 logger = logging.get_logger(__name__)
@@ -66,6 +68,30 @@ class Davis(torch.utils.data.Dataset):
     def pack_pathway_output(self, frames):
        frame_list = [frames]
        return frame_list
+
+    def spatial_sampling(
+        self,
+        frames,
+        spatial_idx=-1,
+        min_scale=256,
+        max_scale=320,
+        crop_size=224,
+    ):
+        assert spatial_idx in [-1, 0, 1, 2]
+        if spatial_idx == -1:
+            frames = transform.random_short_side_scale_jitter(
+                frames, min_scale, max_scale
+            )
+            frames = transform.random_crop(frames, crop_size)
+            frames = transform.horizontal_flip(0.5, frames)
+        else:
+            assert len({min_scale, max_scale, crop_size}) == 1
+            frames = transform.random_short_side_scale_jitter(
+                frames, min_scale, max_scale
+            )
+            frames = transform.uniform_crop(frames, crop_size,spatial_idx)
+        return frames
+
     def __len__(self):
         return len(self._path_to_seq_imgs)
 
@@ -86,13 +112,13 @@ class Davis(torch.utils.data.Dataset):
                 % self.cfg.TEST.NUM_SPATIAL_CROPS
             )
             min_scale, max_scale, crop_size = [self.cfg.DATA.TEST_CROP_SIZE] * 3
-            assert len({min_scale, max_scle, crop_size}) == 1
+            assert len({min_scale, max_scale, crop_size}) == 1
         else:
             raise NotImplementedError(
                 "Does not support {} mode".format(self.mode)    
             )
         try:
-            seq_dir = self._path_to_seq_imgs[idx].strip()
+            seq_dir = self._path_to_seq_imgs[index].strip()
             path_to_frames = np.sort(os.listdir(seq_dir))
             path_to_frames_length = len(path_to_frames)
         except Exception as e:
@@ -101,9 +127,42 @@ class Davis(torch.utils.data.Dataset):
                     self._path_to_seq_imgs[index],e
                 )
             )
-        
+        frames = smpl.get_frames(
+            path_to_frames,
+            self.cfg.DATA.SAMPLING_RATE,
+            self.cfg.DATA.NUM_FRAMES,
+            temporal_sample_index,
+            self.cfg.TEST.NUM_ENSEMBLE_VIEWS,
+            #video_meta=self._video_meta[index],
+            target_fps=30,
+            )
+        # if frames is None:
+        #     index = random.randint(0, len(self._path_to_videos) - 1)
+        #     continue
         frames = frames.float()
-        frames = frames
+        frames = frames / 255.0
+        frames = frames - torch.tensor(self.cfg.DATA.MEAN)
+        frames = frames / torch.tensor(self.DATA.STD)
+        # T H W C -> C T H W
+        frames = frames.permute(3, 0, 1, 2)
+
+        frames = self.spatial_sampling(
+            frames,
+            spatial_idx=spatial_sample_index,
+            min_scale=min_scale,
+            max_scale=max_scale,
+            crop_size=crop_size,
+        )
+
+        label = self._labels[index]
+        frames = self.pack_pathway_output(frames)
+        return frames, label, index
+    else:
+        raise RuntimeError(
+            "Failed to fetch video after {} retries.".format(
+                self._num_retries
+            )
+        )
 
             #gt = cv2.imread(gt_path, -1) # load unchaned image
 
