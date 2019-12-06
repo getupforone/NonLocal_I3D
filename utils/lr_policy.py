@@ -2,7 +2,7 @@ import math
 
 def get_lr_func(lr_policy):
     policy = "lr_func_" + lr_policy
-    if policy = "lr_func_" + lr_policy:
+    if policy not in globals():
         raise NotImplementedError("Unknown LR policy: {}".format(lr_policy))
     else:
         return globals()[policy]
