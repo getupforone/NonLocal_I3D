@@ -157,12 +157,7 @@ class Davis(torch.utils.data.Dataset):
         label = self._labels[index]
         frames = self.pack_pathway_output(frames)
         return frames, label, index
-    else:
-        raise RuntimeError(
-            "Failed to fetch video after {} retries.".format(
-                self._num_retries
-            )
-        )
+ 
 
             #gt = cv2.imread(gt_path, -1) # load unchaned image
 
