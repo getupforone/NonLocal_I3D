@@ -3,7 +3,7 @@ import pickle
 from collections import OrderedDict
 import torch
 
-import utils.logger as logging
+import utils.logging as logging
 
 logger = logging.get_logger(__name__)
 
