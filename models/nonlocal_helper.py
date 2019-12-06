@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-class Nonlocal(nn.Moduel):
+class Nonlocal(nn.Module):
     def __init__(
         self,
         dim,
