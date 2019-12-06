@@ -29,7 +29,7 @@ class Davis(torch.utils.data.Dataset):
 
     def _construct_loader(self):
         path_to_file = os.path.join(
-            self.cfg.DATA.PATH_TO_DATA_DIR, "{}_dir_list.txt".format(self.mode)
+            self.cfg.DATA.PATH_TO_DATA_DIR, "{}_list.txt".format(self.mode)
         )
         assert os.path.exists(path_to_file), "{} dir not found".format(path_to_file)
 
