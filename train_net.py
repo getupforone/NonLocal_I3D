@@ -5,7 +5,7 @@ import torch
 from fvcore.nn.precise_bn import get_bn_modules, update_bn_stats
 
 import models.losses as losses
-import models.optimizer as optimizer
+import models.optimizer as optim
 import utils.checkpoint as cu
 import utils.logging as logging
 import utils.metrics as metrics
