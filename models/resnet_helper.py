@@ -301,21 +301,21 @@ class ResStage(nn.Module):
         for i in range(self.num_blocks[0]):
             trans_func = get_trans_func(trans_func_name)
             res_block = ResBlock(
-                dim_in if i == 0 else dim_out,
-                dim_out,
-                self.temp_kernel_size[i],
-                stride if i == 0 else 1,
+                dim_in[0] if i == 0 else dim_out[0],
+                dim_out[0],
+                self.temp_kernel_size[0][i],
+                stride[0] if i == 0 else 1,
                 trans_func,
-                dim_inner,
-                num_groups,
+                dim_inner[0],
+                num_groups[0],
                 stride_1x1=stride_1x1,
                 inplace_relu=inplace_relu,
             )
             self.add_module("res{}".format(i), res_block)
-            if i in nonlocal_inds:
+            if i in nonlocal_inds[0]:
                 nln = Nonlocal(
-                    dim_out,
-                    dim_out // 2,
+                    dim_out[0],
+                    dim_out[0] // 2,
                     [1, 2, 2],
                     instantiation=instantiation,
                 )
@@ -325,26 +325,26 @@ class ResStage(nn.Module):
     def forward(self, inputs):
         output = []
         x = inputs
-        for i in range(self.num_block):
+        for i in range(self.num_blocks[0]):
             m = getattr(self, "res{}".format(i))
             x = m(x)
             if hasattr(self, "nonlocal{}".format(i)):
                 nln = getattr("nonlocal{}".format(i))
                 b, c, t, h, w = x.shape
-                if self.nonlocal_group > 1:
+                if self.nonlocal_group[0] > 1:
                     # Fold temporal dimension into batch dimension.
                     #( b,c,t,h,w) => (b,t,c,h,w)
                     x = x.permute(0, 2, 1, 3, 4)
                     x = x.reshape(
-                        b * self.nonlocal_group,
-                        t // self.nonlocal_group,
+                        b * self.nonlocal_group[0],
+                        t // self.nonlocal_group[0],
                         c,
                         h,
                         w,
                     )
                     x = x.permute(0,2,1,3,4)
                 x = nln(x)
-                if self.nonlocal_group > 1:
+                if self.nonlocal_group[0] > 1:
                     x = x.permute(0,2,1,3,4)
                     x = x.reshape(b,t,c,h,w)
                     x = x.permute(0,2,1,3,4)
