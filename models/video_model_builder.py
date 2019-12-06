@@ -35,7 +35,7 @@ class ResNetModel(nn.Module):
 
         (d2, d3, d4, d5) = _MODEL_STAGE_DEPTH[cfg.RESNET.DEPTH]
 
-        num_groups = cfg.RESNET.NUM_GROUP
+        num_groups = cfg.RESNET.NUM_GROUPS
         width_per_group = cfg.RESNET.WIDTH_PER_GROUP
         dim_inner = num_groups * width_per_group
 
