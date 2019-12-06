@@ -10,9 +10,9 @@ import utils.checkpoint as cu
 import utils.logging as logging
 import utils.metrics as metrics
 import utils.misc as misc
-import datasets import loader
-import models import model_builder
-import utils.meters import TrainMeter, ValMeter
+from datasets import loader
+from models import model_builder
+from utils.meters import TrainMeter, ValMeter
 
 import utils.distributed as du
 
