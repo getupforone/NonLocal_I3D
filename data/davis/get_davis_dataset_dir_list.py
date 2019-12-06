@@ -9,7 +9,9 @@ for dir in dirs:
     seqs = np.sort(os.listdir(dir))
     for seq in seqs:
         seq_path = os.path.join(dir,seq)
-        file_write_obj.writelines(seq_path)
+        line = "{}  {}".format(seq_path, seq)
+        print(line)
+        file_write_obj.writelines(line)
         #file_write_obj.writelines(seq)
         file_write_obj.write('\n')
 

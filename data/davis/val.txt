@@ -1,0 +1,5 @@
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/bear  bear
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/blackswan  blackswan
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/bmx-bumps  bmx-bumps
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/bmx-trees  bmx-trees
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/boat  boat

@@ -73,9 +73,9 @@ class Davis(torch.utils.data.Dataset):
         self,
         frames,
         spatial_idx=-1,
-        min_scale=256,
-        max_scale=320,
-        crop_size=224,
+        min_scale=64,#min_scale=256,
+        max_scale=80,#max_scale=320,
+        crop_size=56,#crop_size=224,
     ):
         assert spatial_idx in [-1, 0, 1, 2]
         if spatial_idx == -1:

@@ -8,7 +8,7 @@ from datasets.davis import Davis
 
 _DATASET_CATALOG = {"kinetics": Kinetics, "davis": Davis}
 
-def contruct_loader(cfg, split):
+def construct_loader(cfg, split):
     assert split in ["train", "val", "test"]
     if split in ["train"]:
         dataset_name = cfg.TRAIN.DATASET

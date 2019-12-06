@@ -1,0 +1,11 @@
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/rhino  rhino
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/rollerblade  rollerblade
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/scooter-black  scooter-black
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/scooter-gray  scooter-gray
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/soapbox  soapbox
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/soccerball  soccerball
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/stroller  stroller
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/surf  surf
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/swing  swing
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/tennis  tennis
+/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p/train  train

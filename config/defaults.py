@@ -38,7 +38,7 @@ _C.TRAIN = CfgNode()
 _C.TRAIN.ENABLE = True
 
 # Dataset
-_C.TRAIN.DATASET = "kinetics"
+_C.TRAIN.DATASET = "davis"
 
 # Total mini-batch size.
 _C.TRAIN.BATCH_SIZE = 64
@@ -70,7 +70,7 @@ _C.TEST = CfgNode()
 _C.TEST.ENABLE = True
 
 # Dataset for testing.
-_C.TEST.DATASET = "kinetics"
+_C.TEST.DATASET = "davis"
 
 # Total mini-batch size
 _C.TEST.BATCH_SIZE = 8
@@ -142,10 +142,10 @@ _C.NONLOCAL.INSTANTIATION = "dot_product"
 _C.MODEL = CfgNode()
 
 # Model architecture.
-_C.MODEL.ARCH = "slowfast"
+_C.MODEL.ARCH = "i3d"
 
 # The number of classes to predict for the model.
-_C.MODEL.NUM_CLASSES = 400
+_C.MODEL.NUM_CLASSES = 50
 
 # Loss function.
 _C.MODEL.LOSS_FUNC = "cross_entropy"
@@ -196,7 +196,7 @@ _C.DATA.PATH_TO_DATA_DIR = ""
 _C.DATA.PATH_PREFIX = ""
 
 # The spatial crop size of the input clip.
-_C.DATA.CROP_SIZE = 224
+_C.DATA.CROP_SIZE = 56
 
 # The number of frames of the input clip.
 _C.DATA.NUM_FRAMES = 8
@@ -214,13 +214,13 @@ _C.DATA.INPUT_CHANNEL_NUM = [3, 3]
 _C.DATA.STD = [0.225, 0.225, 0.225]
 
 # The spatial augmentation jitter scales for training.
-_C.DATA.TRAIN_JITTER_SCALES = [256, 320]
+_C.DATA.TRAIN_JITTER_SCALES = [64, 80]
 
 # The spatial crop size for training.
-_C.DATA.TRAIN_CROP_SIZE = 224
+_C.DATA.TRAIN_CROP_SIZE = 56
 
 # The spatial crop size for testing.
-_C.DATA.TEST_CROP_SIZE = 256
+_C.DATA.TEST_CROP_SIZE = 64
 
 
 # ---------------------------------------------------------------------------- #
