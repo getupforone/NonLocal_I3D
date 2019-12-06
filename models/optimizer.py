@@ -12,8 +12,8 @@ def construct_optimizer(model, cfg):
             non_bn_parameters.append(p)
 
     optim_params = [
-        {"params": bn_params, "weight_decay": cfg.BN.WEIGHT_DECAY}
-        {"params": non_bn_parameters, "weight_decay": cfg.SOLVER.WEIGHT_DECAY}
+        {"params": bn_params, "weight_decay": cfg.BN.WEIGHT_DECAY},
+        {"params": non_bn_parameters, "weight_decay": cfg.SOLVER.WEIGHT_DECAY},
     ]
     assert len(list(model.parameters())) == len(non_bn_parameters)  + len(bn_params
     ), "parameter size does not match: {} + {} != {}".format(
