@@ -1,4 +1,4 @@
-from thirdparty.fvcore.fvcore.common.config import CfgNode
+from fvcore.fvcore.common.config import CfgNode
 
 _C = CfgNode()
 
