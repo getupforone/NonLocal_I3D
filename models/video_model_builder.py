@@ -100,7 +100,7 @@ class ResNetModel(nn.Module):
             nonlocal_group=cfg.NONLOCAL.GROUP[2],
             instantiation=cfg.NONLOCAL.INSTANTIATION,
             trans_func_name=cfg.RESNET.TRANS_FUNC,
-            stride_1x1=cfg.RESNET.STRIDE_1x1,
+            stride_1x1=cfg.RESNET.STRIDE_1X1,
             inplace_relu=cfg.RESNET.INPLACE_RELU,
         )
 
@@ -116,7 +116,7 @@ class ResNetModel(nn.Module):
             nonlocal_inds=cfg.NONLOCAL.LOCATION[3],
             nonlocal_group=cfg.NONLOCAL.INSTANTIATION,
             trans_func_name=cfg.RESNET.TRANS_FUNC,
-            stride_1x1=cfg.RESNET.STRIDE_1x1,
+            stride_1x1=cfg.RESNET.STRIDE_1X1,
             inplace_relu=cfg.RESNET.INPLACE_RELU,
         )
         self.head = head_helper.ResNetBasicHead(
