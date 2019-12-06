@@ -3,10 +3,11 @@
 import torch
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data.sampler import RandomSampler
-from datasets.kinetics import Kinetics
+#from datasets.kinetics import Kinetics
 from datasets.davis import Davis
 
-_DATASET_CATALOG = {"kinetics": Kinetics, "davis": Davis}
+#_DATASET_CATALOG = {"kinetics": Kinetics, "davis": Davis}
+_DATASET_CATALOG = {"davis": Davis}
 
 def construct_loader(cfg, split):
     assert split in ["train", "val", "test"]
