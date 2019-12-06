@@ -36,8 +36,8 @@ class VideoModelStem(nn.Module):
         self._construct_stem(dim_in, dim_out)
     def _construct_stem(self, dim_in, dim_out):
         stem = ResNetBasicStem(
-            dim_in,
-            dim_out,
+            dim_in[0],
+            dim_out[0],
             self.kernel,
             self.stride,
             self.padding,
