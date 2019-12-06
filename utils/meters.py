@@ -91,7 +91,7 @@ class ScalarMeter(object):
     def get_win_median(self):
         return np.median(self.deque)
 
-    def get_win_avg(self);
+    def get_win_avg(self):
         return np.mean(self.deque)
 
     def get_global_avg(self):
