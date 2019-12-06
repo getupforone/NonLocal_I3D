@@ -10,27 +10,27 @@ class ResNetBasicHead(nn.Module):
         dropout_rate=0.0,
         act_func="softmax",
     ):
-    super(ResNetBasicHead, self).__init__()
-    assert(
-        len({len(pool_size), len(dim_in)})== 1
-    ), "pathway dimensions are not consistent."
-    avg_pool = nn.AvgPool3d(pool_size, stride=1)
-    self.add_module("avgpool", avg_pool)
+        super(ResNetBasicHead, self).__init__()
+        assert(
+            len({len(pool_size), len(dim_in)})== 1
+        ), "pathway dimensions are not consistent."
+        avg_pool = nn.AvgPool3d(pool_size, stride=1)
+        self.add_module("avgpool", avg_pool)
 
-    if dropout_rate > 0.0:
-        self.dropout = nn.Dropout(dropout_rate)
+        if dropout_rate > 0.0:
+            self.dropout = nn.Dropout(dropout_rate)
 
-    self.projection = nn.Linear(sum(dim_in), num_classes, bias=True)
+        self.projection = nn.Linear(sum(dim_in), num_classes, bias=True)
 
-    if act_func == "softmax":
-        self.act = nn.Softmax(dim=4)
-    elif act_func == "sigmoid":
-        self.act = nn.Sigmoid()
-    else:
-        raise NotImplementedError(
-            "{} is not supported as an activation"
-            "function.".format(act_func)
-        )
+        if act_func == "softmax":
+            self.act = nn.Softmax(dim=4)
+        elif act_func == "sigmoid":
+            self.act = nn.Sigmoid()
+        else:
+            raise NotImplementedError(
+                "{} is not supported as an activation"
+                "function.".format(act_func)
+            )
 def forward(self, inputs):
     pool_out = []
     m = getattr(self, "avgpool")
