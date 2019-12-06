@@ -88,7 +88,7 @@ class ResNetModel(nn.Module):
         )
         
         self.s4 = resnet_helper.ResStage(
-            dim_in=[width_per_group * 8]
+            dim_in=[width_per_group * 8],
             dim_out=[width_per_group * 16],
             dim_inner=[dim_inner * 4],
             temp_kernel_sizes=temp_kernel[3],
