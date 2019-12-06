@@ -38,9 +38,9 @@ class VideoModelStem(nn.Module):
         stem = ResNetBasicStem(
             dim_in[0],
             dim_out[0],
-            self.kernel,
-            self.stride,
-            self.padding,
+            self.kernel[0],
+            self.stride[0],
+            self.padding[0],
             self.inplace_relu,
             self.eps,
             self.bn_mmt,
