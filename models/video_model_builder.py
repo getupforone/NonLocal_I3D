@@ -112,7 +112,7 @@ class ResNetModel(nn.Module):
             stride=[2],
             num_blocks=[d5],
             num_groups=[num_groups],
-            num_block_temp_kernel=cfg.RESNET.NUM_BLOCK_TEMP.KERNEL[3],
+            num_block_temp_kernel=cfg.RESNET.NUM_BLOCK_TEMP_KERNEL[3],
             nonlocal_inds=cfg.NONLOCAL.LOCATION[3],
             nonlocal_group=cfg.NONLOCAL.INSTANTIATION,
             trans_func_name=cfg.RESNET.TRANS_FUNC,
