@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-import utils.weight_init_helperxs as init_helper
+import utils.weight_init_helper as init_helper
 from models import head_helper, resnet_helper, stem_helper
 
 _MODEL_STAGE_DEPTH = {50: (3, 4, 6, 3), 101: (3, 4, 23, 3)}
