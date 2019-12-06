@@ -298,7 +298,7 @@ class ResStage(nn.Module):
         nonlocal_inds,
         instantiation,
     ):
-        for i in range(self.num_blocks):
+        for i in range(self.num_blocks[0]):
             trans_func = get_trans_func(trans_func_name)
             res_block = ResBlock(
                 dim_in if i == 0 else dim_out,
