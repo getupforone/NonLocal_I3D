@@ -324,7 +324,7 @@ class ResStage(nn.Module):
                     "nonlocal{}".format(i), nln
                 )
     def forward(self, inputs):
-        output = []
+        #output = []
         x = inputs
         for i in range(self.num_blocks[0]):
             m = getattr(self, "res{}".format(i))
@@ -349,7 +349,7 @@ class ResStage(nn.Module):
                     x = x.permute(0,2,1,3,4)
                     x = x.reshape(b,t,c,h,w)
                     x = x.permute(0,2,1,3,4)
-            output.append(x)
+        #output.append(x)
 
-        return output
+        return x
         

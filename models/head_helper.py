@@ -32,10 +32,12 @@ class ResNetBasicHead(nn.Module):
                 "function.".format(act_func)
             )
 def forward(self, inputs):
-    pool_out = []
+    #pool_out = []
     m = getattr(self, "avgpool")
-    pool_out.append(m(inputs))
-    x = torch.cat(pool_out, 1)
+
+    #pool_out.append(m(inputs))
+    #x = torch.cat(pool_out, 1)
+    x = m(inputs)
     # (N, C, T, H, W) -> (N, T, H, W, C).
     x = x.permute((0, 2, 3, 4, 1))
 

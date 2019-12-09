@@ -163,7 +163,7 @@ class Davis(torch.utils.data.Dataset):
         )
 
         label = self._labels[index]
-        frames = self.pack_pathway_output(frames)
+        #frames = self.pack_pathway_output(frames) # this parts makes tensor to list of tensor
         return frames, label, index
  
 
