@@ -44,8 +44,8 @@ def get_frames(path_to_frames,
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
     frames = rd_frames(path_to_frames)
-    print("frames types is {}".format(type(frames))
-    print("frames len is {}".format(len(frames))
+    print("frames types is {}".format(type(frames)))
+    print("frames len is {}".format(len(frames)))
     frames = cvt_frames(frames)
 
     start_idx, end_idx = get_start_end_idx(
