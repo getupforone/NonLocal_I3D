@@ -74,7 +74,7 @@ class TestMeter(object):
 
 class ScalarMeter(object):
     def __init__(self, window_size):
-        self.deque = deque(maxlen=windows_size)
+        self.deque = deque(maxlen=window_size)
         self.total = 0.0
         self.count = 0
 
