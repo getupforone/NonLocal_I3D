@@ -57,7 +57,7 @@ def get_frames(path_to_frames,
     #print("frames types is {}".format(type(frames)))
     #print("frames len is {}".format(len(frames)))
     frames = cvt_frames(frames)
-    print("frames types is {}".format(type(frames)))
+    #print("frames types is {}".format(type(frames)))
 
     start_idx, end_idx = get_start_end_idx(
         frames.shape[0],

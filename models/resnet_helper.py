@@ -325,7 +325,7 @@ class ResStage(nn.Module):
                 )
     def forward(self, inputs):
         output = []
-        x = inputs
+        x = inputs[0]
         for i in range(self.num_blocks[0]):
             m = getattr(self, "res{}".format(i))
             x = m(x)
