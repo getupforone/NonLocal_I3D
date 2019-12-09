@@ -11,9 +11,9 @@ class ResNetBasicHead(nn.Module):
         act_func="softmax",
     ):
         super(ResNetBasicHead, self).__init__()
-        assert(
-            len({len(pool_size), len(dim_in)})== 1
-        ), "pathway dimensions are not consistent."
+        # assert(
+        #     len({len(pool_size), len(dim_in)})== 1
+        # ), "pathway dimensions are not consistent."
         avg_pool = nn.AvgPool3d(pool_size, stride=1)
         self.add_module("avgpool", avg_pool)
 
