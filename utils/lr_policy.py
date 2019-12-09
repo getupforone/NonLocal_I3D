@@ -7,7 +7,7 @@ def get_lr_func(lr_policy):
     else:
         return globals()[policy]
 def get_lr_at_epoch(cfg, cur_epoch):
-    lr = get_lr_func(cfg.SOLVER.LR_POLICY)(cfg.cur_epoch)
+    lr = get_lr_func(cfg.SOLVER.LR_POLICY)(cfg, cur_epoch)
     if cur_epoch < cfg.SOLVER.WARMUP_EPOCHS:
         lr_start = cfg.SOLVER.WARMUP_START_LR
         lr_end = get_lr_func(cfg.SOLVER.LR_POLICY)(
