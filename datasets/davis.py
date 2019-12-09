@@ -122,7 +122,7 @@ class Davis(torch.utils.data.Dataset):
             seq_dir = self._path_to_seq_imgs[index].strip()
             path_to_frames = np.sort(os.listdir(seq_dir))
             path_to_frames_length = len(path_to_frames)
-            print("!!! length={}".path_to_frames_length)
+            print("!!! length={}".format(path_to_frames_length))
         except Exception as e:
             logger.info(
                 "Failed to load video from {} with error {}".format(
