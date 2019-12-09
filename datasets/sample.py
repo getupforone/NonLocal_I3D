@@ -25,6 +25,8 @@ def rd_frames(path_to_frames):
         for path in path_to_frames:
             frame = cv2.imread(path, -1) # load unchaned image
             frames.append(frame)
+            print(path)
+
             height, width, channels = frame.shape
             print(path)
             print("sizeof img = {}/{}/{}".format(height, width,channels))
