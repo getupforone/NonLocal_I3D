@@ -131,6 +131,7 @@ class ResNetModel(nn.Module):
                 ]
             ],
             dropout_rate=cfg.MODEL.DROPOUT_RATE,
+            act_func="softmax",
         )
     def forward(self, x):
         x = self.s1(x)

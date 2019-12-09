@@ -31,23 +31,23 @@ class ResNetBasicHead(nn.Module):
                 "{} is not supported as an activation"
                 "function.".format(act_func)
             )
-def forward(self, inputs):
-    #pool_out = []
-    m = getattr(self, "avgpool")
+    def forward(self, inputs):
+        #pool_out = []
+        m = getattr(self, "avgpool")
 
-    #pool_out.append(m(inputs))
-    #x = torch.cat(pool_out, 1)
-    x = m(inputs)
-    # (N, C, T, H, W) -> (N, T, H, W, C).
-    x = x.permute((0, 2, 3, 4, 1))
+        #pool_out.append(m(inputs))
+        #x = torch.cat(pool_out, 1)
+        x = m(inputs)
+        # (N, C, T, H, W) -> (N, T, H, W, C).
+        x = x.permute((0, 2, 3, 4, 1))
 
-    if hasattr(self, "dropout"):
-        x = self.dropout(x)
-    x = self.projection(x)
+        if hasattr(self, "dropout"):
+            x = self.dropout(x)
+        x = self.projection(x)
 
-    if not self.training:
-        x = self.act(x)
-        x = x.mean([1, 2, 3])
+        if not self.training:
+            x = self.act(x)
+            x = x.mean([1, 2, 3])
 
-    x = x.view(x.shape[0], -1)
-    return x
+        x = x.view(x.shape[0], -1)
+        return x
