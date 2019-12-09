@@ -2,7 +2,7 @@ import os
 import random
 import torch
 import torch.utils.data
-
+import numpy as np
 import utils.logging as logging
 import datasets.sample as smpl
 import datasets.transform as transform
