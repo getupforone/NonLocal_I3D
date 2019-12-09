@@ -39,7 +39,9 @@ def rd_frames(path_to_frames):
 def cvt_frames(frames):
     #cv2.imshow('frame',frames[0])
     #cv2.waitKey(0)
-    return torch.as_tensor(np.stack(frames))
+    frames_t = [frame.to_rgb().to_ndarray() for frame in frames]
+    frames = torch.as_tensor(np.stack(frames_t))
+    return 
 
 def get_frames(path_to_frames,
                 sampling_rate,
@@ -55,6 +57,7 @@ def get_frames(path_to_frames,
     #print("frames types is {}".format(type(frames)))
     #print("frames len is {}".format(len(frames)))
     frames = cvt_frames(frames)
+    print("frames types is {}".format(type(frames)))
 
     start_idx, end_idx = get_start_end_idx(
         frames.shape[0],
