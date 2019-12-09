@@ -41,7 +41,7 @@ def cvt_frames(frames):
     #cv2.waitKey(0)
     
     frames = torch.as_tensor(np.stack(frames))
-    return 
+    return frames
 
 def get_frames(path_to_frames,
                 sampling_rate,
