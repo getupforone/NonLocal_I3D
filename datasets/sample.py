@@ -25,6 +25,8 @@ def rd_frames(path_to_frames):
         for path in path_to_frames:
             frame = cv2.imread(path, -1) # load unchaned image
             frames.append(frame)
+            cv2.imshow('frame1',frame)
+            cv2.waitKey(0)
     except Exception as e:
         print("Failed to get images with exception: {}",format(e))
         return None
