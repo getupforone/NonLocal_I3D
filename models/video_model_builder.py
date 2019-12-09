@@ -133,7 +133,7 @@ class ResNetModel(nn.Module):
             dropout_rate=cfg.MODEL.DROPOUT_RATE,
         )
     def forward(self, x):
-        x = self.s1(x)
+        x = self.s1(x[0])
         x = self.s2(x)
         pool = getattr(self, "pool")
         x = pool(x)
