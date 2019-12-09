@@ -1,4 +1,3 @@
-/data3/DAVIS/JPEGImages/480p/.DS_Store  0
 /data3/DAVIS/JPEGImages/480p/bear  1
 /data3/DAVIS/JPEGImages/480p/blackswan  2
 /data3/DAVIS/JPEGImages/480p/bmx-bumps  3
