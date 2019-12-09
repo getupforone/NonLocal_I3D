@@ -18,7 +18,7 @@ def all_gather(tensors):
         output_tensor.append(torch.cat(gathered_tensor, dim=0))
     return output_tensor
 
-def all_reduece(tensors, average=True):
+def all_reduce(tensors, average=True):
     for tensor in tensors:
         dist.all_reduce(tensor, async_op=False)
     if average:
