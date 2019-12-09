@@ -102,7 +102,7 @@ class TrainMeter(object):
     def __init__(self, epoch_iters, cfg):
         self._cfg = cfg
         self.epoch_iters = epoch_iters
-        self.MAX_EPOCH = cfg.SOVER.MAX_EPOCH * epoch_iters
+        self.MAX_EPOCH = cfg.SOLVER.MAX_EPOCH * epoch_iters
         self.iter_timer = Timer()
         self.loss = ScalarMeter(cfg.LOG_PERIOD)
         self.loss_total = 0.0
