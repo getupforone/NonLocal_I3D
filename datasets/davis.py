@@ -150,7 +150,7 @@ class Davis(torch.utils.data.Dataset):
         frames = frames.float()
         frames = frames / 255.0
         frames = frames - torch.tensor(self.cfg.DATA.MEAN)
-        frames = frames / torch.tensor(self.DATA.STD)
+        frames = frames / torch.tensor(self.cfg.DATA.STD)
         # T H W C -> C T H W
         frames = frames.permute(3, 0, 1, 2)
 
