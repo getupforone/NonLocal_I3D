@@ -127,7 +127,7 @@ class Davis(torch.utils.data.Dataset):
                 path_to_frame = os.path.join(seq_dir,name)
                 path_to_frames.append(path_to_frame)
                 
-            print(path_to_frames)
+            
             path_to_frames_length = len(path_to_frames)           
         except Exception as e:
             logger.info(

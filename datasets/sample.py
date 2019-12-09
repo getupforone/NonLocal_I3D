@@ -25,11 +25,11 @@ def rd_frames(path_to_frames):
         for path in path_to_frames:
             frame = cv2.imread(path, -1) # load unchaned image
             frames.append(frame)
-            print(path)
+            #print(path)
 
-            height, width, channels = frame.shape
-            print(path)
-            print("sizeof img = {}/{}/{}".format(height, width,channels))
+            #height, width, channels = frame.shape
+            #print(path)
+            #print("sizeof img = {}/{}/{}".format(height, width,channels))
             
     except Exception as e:
         print("Failed to get images with exception: {}",format(e))
@@ -37,8 +37,8 @@ def rd_frames(path_to_frames):
     return frames
 
 def cvt_frames(frames):
-    #cv2.imshow('frame',frames[0])
-    #cv2.waitKey(0)
+    cv2.imshow('frame',frames[0])
+    cv2.waitKey(0)
     return torch.as_tensor(np.stack(frames))
 
 def get_frames(path_to_frames,
@@ -52,8 +52,8 @@ def get_frames(path_to_frames,
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
     frames = rd_frames(path_to_frames)
-    print("frames types is {}".format(type(frames)))
-    print("frames len is {}".format(len(frames)))
+    #print("frames types is {}".format(type(frames)))
+    #print("frames len is {}".format(len(frames)))
     frames = cvt_frames(frames)
 
     start_idx, end_idx = get_start_end_idx(
