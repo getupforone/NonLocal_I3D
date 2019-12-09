@@ -124,11 +124,9 @@ class ResNetModel(nn.Module):
             dim_in=[width_per_group * 32],
             num_classes=cfg.MODEL.NUM_CLASSES,
             pool_size=[
-                [
-                    cfg.DATA.NUM_FRAMES // pool_size[0][0],
-                    cfg.DATA.CROP_SIZE // 32 // pool_size[0][1],
-                    cfg.DATA.CROP_SIZE // 32 // pool_size[0][2],
-                ]
+                cfg.DATA.NUM_FRAMES // pool_size[0][0],
+                cfg.DATA.CROP_SIZE // 32 // pool_size[0][1],
+                cfg.DATA.CROP_SIZE // 32 // pool_size[0][2],
             ],
             dropout_rate=cfg.MODEL.DROPOUT_RATE,
             act_func="softmax",
