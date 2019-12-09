@@ -205,7 +205,7 @@ class ResBlock(nn.Module):
                 dim_out, eps=self._eps, momentum=self._bn_mmt
             )
 
-        self.barnch2 = trans_func(
+        self.branch2 = trans_func(
             dim_in,
             dim_out,
             temp_kernel_size,
