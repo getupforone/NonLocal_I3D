@@ -118,9 +118,15 @@ class Davis(torch.utils.data.Dataset):
             raise NotImplementedError(
                 "Does not support {} mode".format(self.mode)    
             )
+        path_to_frames = []
         try:            
             seq_dir = self._path_to_seq_imgs[index].strip()
-            path_to_frames = np.sort(os.listdir(seq_dir))
+            name_of_frames = np.sort(os.listdir(seq_dir))
+            
+            for name in name_of_frames:
+                path_to_frame = os.path.join(seq_dir,name)
+                path_to_frames.append(path_to_frame)
+                
             print(path_to_frames)
             path_to_frames_length = len(path_to_frames)           
         except Exception as e:
