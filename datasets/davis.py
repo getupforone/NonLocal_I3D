@@ -18,6 +18,7 @@ class Davis(torch.utils.data.Dataset):
         self.mode = mode
         self.cfg = cfg
 
+        self._img_meta = {}
         if self.mode in ["train", "val"]:
             self._num_clips = 1
         elif self.mode in ["test"]:
@@ -36,7 +37,6 @@ class Davis(torch.utils.data.Dataset):
         self._path_to_seq_imgs  = []
         self._labels = []
         self._spatial_temporal_idx = []
-        self._img_meta = []
 
         with open(path_to_file, "r") as f:
             for clip_idx, path_label in enumerate(f.read().splitlines()):
