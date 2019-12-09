@@ -140,5 +140,5 @@ class ResNetModel(nn.Module):
         x = self.s3(x)
         x = self.s4(x)
         x = self.s5(x)
-        x = self.head(x[0])
+        x = self.head(x)
         return x
