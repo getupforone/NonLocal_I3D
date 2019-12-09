@@ -119,7 +119,7 @@ class Davis(torch.utils.data.Dataset):
                 "Does not support {} mode".format(self.mode)    
             )
         try:
-            printf("path_to_seq_imgs = {}".format(self._path_to_seq_imgs))
+            print("path_to_seq_imgs = {}".format(self._path_to_seq_imgs))
             seq_dir = self._path_to_seq_imgs[index].strip()
             path_to_frames = np.sort(os.listdir(seq_dir))
             path_to_frames_length = len(path_to_frames)
