@@ -33,8 +33,8 @@ def rd_frames(path_to_frames):
     return frames
 
 def cvt_frames(frames):
-    cv2.imshow('frame',frames[0])
-    cv2.waitKey(0)
+    #cv2.imshow('frame',frames[0])
+    #cv2.waitKey(0)
     return torch.as_tensor(np.stack(frames))
 
 def get_frames(path_to_frames,
