@@ -162,7 +162,8 @@ class Davis(torch.utils.data.Dataset):
             max_scale=max_scale,
             crop_size=crop_size,
         )
-        print("frames len = {}".format(frames.shape[0]))
+        print("frame len ", frames.shape)
+        print("frames len = {}".format(frames.shape[1]))
         label = self._labels[index]
         #frames = self.pack_pathway_output(frames) # this parts makes tensor to list of tensor
         return frames, label, index

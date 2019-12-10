@@ -9,15 +9,6 @@ def temporal_sampling(frames, start_idx, end_idx, num_samples):
     index = torch.clamp(index, 0, frames.shape[0] - 1).long()
     frames = torch.index_select(frames, 0, index)
     return frames
-
-def get_start_end_idx(seq_size, clip_size, clip_idx, num_clips):
-    delta = max(seq_size - clip_size, 0)
-    if clip_idx == -1:
-        start_idx = random.uniform(0, delta)
-    else:
-        start_idx = delta * clip_idx / num_clips
-    end_idx = start_idx + clip_size - 1
-    return start_idx, end_idx
     
 def rd_frames(path_to_frames):
     frames = []
@@ -43,6 +34,16 @@ def cvt_frames(frames):
     frames = torch.as_tensor(np.stack(frames))
     return frames
 
+
+def get_start_end_idx(seq_size, clip_size, clip_idx, num_clips):
+    delta = max(seq_size - clip_size, 0)
+    if clip_idx == -1:
+        start_idx = random.uniform(0, delta)
+    else:
+        start_idx = delta * clip_idx / num_clips
+    end_idx = start_idx + clip_size - 1
+    return start_idx, end_idx
+
 def get_frames(path_to_frames,
                 sampling_rate,  # 1 frame sampling rate( interval between two sampled frames)
                 num_frames,     # 8
@@ -54,11 +55,12 @@ def get_frames(path_to_frames,
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
     frames = rd_frames(path_to_frames)
+    
     #print("frames types is {}".format(type(frames)))
     #print("frames len is {}".format(len(frames)))
     frames = cvt_frames(frames)
     #print("frames types is {}".format(type(frames)))
-
+    print("num_of_frames1 ", format(frames.shape))
     start_idx, end_idx = get_start_end_idx(
         frames.shape[0],                                    #seq_size
         num_frames * sampling_rate * fps / target_fps,      #clip_size
@@ -67,5 +69,6 @@ def get_frames(path_to_frames,
     )
 
     frames = temporal_sampling(frames,start_idx,end_idx,num_frames)
+    print("num_of_frames2 ", format(frames.shape))
     return frames
 
