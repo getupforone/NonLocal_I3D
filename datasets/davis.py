@@ -137,12 +137,13 @@ class Davis(torch.utils.data.Dataset):
             )
         frames = smpl.get_frames(
             path_to_frames,
-            self.cfg.DATA.SAMPLING_RATE,
-            self.cfg.DATA.NUM_FRAMES,
-            temporal_sample_index,
-            self.cfg.TEST.NUM_ENSEMBLE_VIEWS,
-            #video_meta=self._video_meta[index],
-            target_fps=30,
+            self.cfg.DATA.SAMPLING_RATE, # sampling_rate 1
+            self.cfg.DATA.NUM_FRAMES,       #num_frames 8
+            temporal_sample_index,          #clip_idx
+            self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10
+            #video_meta=self._video_meta[index],    
+            fps=30,
+            target_fps=30,                  #target_fps
             )
         # if frames is None:
         #     index = random.randint(0, len(self._path_to_videos) - 1)
@@ -161,7 +162,7 @@ class Davis(torch.utils.data.Dataset):
             max_scale=max_scale,
             crop_size=crop_size,
         )
-
+        print("frames len = {}".format(frames.shape[0]))
         label = self._labels[index]
         #frames = self.pack_pathway_output(frames) # this parts makes tensor to list of tensor
         return frames, label, index

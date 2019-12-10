@@ -44,11 +44,11 @@ def cvt_frames(frames):
     return frames
 
 def get_frames(path_to_frames,
-                sampling_rate,
-                num_frames,
+                sampling_rate,  # 1 frame sampling rate( interval between two sampled frames)
+                num_frames,     # 8
                 clip_idx=-1,
                 num_clips=10,
-                fps=120,
+                fps=30,
                 target_fps=30,
 ):
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
@@ -60,10 +60,10 @@ def get_frames(path_to_frames,
     #print("frames types is {}".format(type(frames)))
 
     start_idx, end_idx = get_start_end_idx(
-        frames.shape[0],
-        num_frames * sampling_rate * fps / target_fps,
-        clip_idx,
-        num_clips,
+        frames.shape[0],                                    #seq_size
+        num_frames * sampling_rate * fps / target_fps,      #clip_size
+        clip_idx,                                           #clip_idx
+        num_clips,                                          #num_clips
     )
 
     frames = temporal_sampling(frames,start_idx,end_idx,num_frames)

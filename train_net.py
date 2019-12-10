@@ -187,7 +187,7 @@ def train(cfg):
         loader.shuffle_dataset(train_loader, cur_epoch)
         train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg)
 
-        if cfg.BN.USE_PRECISE_STATS and len(get_bn_modules(model)) >0:
+        if cfg.BN.USE_PRECISE_STATS and len(get_bn_modules(model)) > 0:
             calculate_and_update_precise_bn(
                 train_loader, model, cfg.BN.NUM_BATCHES_PRECISE
             )
