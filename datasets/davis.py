@@ -138,7 +138,7 @@ class Davis(torch.utils.data.Dataset):
         frames = smpl.get_frames(
             path_to_frames,
             self.cfg.DATA.SAMPLING_RATE, # sampling_rate 1
-            self.cfg.DATA.NUM_FRAMES,       #num_frames 8
+            self.cfg.DATA.NUM_FRAMES,       #num_frames 10
             temporal_sample_index,          #clip_idx
             self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10
             #video_meta=self._video_meta[index],    
