@@ -84,7 +84,7 @@ def eval_epoch(val_loader, model, val_meter, cur_epoch, cfg):
     model.eval()
     val_meter.iter_tic()
 
-    for cur_iter, (inputs, lables, _) in enumerate(val_loader):
+    for cur_iter, (inputs, labels, _) in enumerate(val_loader):
         if isinstance(inputs, (list,)):
             for i in range(len(inputs)):
                 inputs[i] = inputs[i].cuda(non_blocking=True)
