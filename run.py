@@ -78,7 +78,7 @@ def main():
         if cfg.NUM_GPUS > 1:
             torch.multiprocessing.spawn(
                 mpu.run,
-                nproncs=cfg.NUM_GPUS,
+                nprocs=cfg.NUM_GPUS,
                 args=(
                     cfg.NUM_GPUS,
                     train,
