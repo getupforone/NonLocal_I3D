@@ -2,8 +2,8 @@ import os
 import numpy as np
 print("thank you")
 
-#dirs = ['/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p']
-dirs = ['/data3/DAVIS/JPEGImages/480p']
+dirs = ['/Users/giilkwon/WorkSpace/datasets/DAVIS/JPEGImages/480p']
+#dirs = ['/data3/DAVIS/JPEGImages/480p']
 
 file_write_obj = open('davis_seqs_list.txt','w')
 for dir in dirs:
