@@ -31,8 +31,8 @@ def cvt_frames(frames):
     #cv2.imshow('frame',frames[0])
     #cv2.waitKey(0)
     print("cvt_frames: fames shape {}".format(len(frames)))
-    for elm in frames:
-        print("{}".format(elm.shape))
+    for idx, elm in enumerate(frames):
+        print("\n frames[{}]: {}".format(idx, elm.shape))
     frames = torch.as_tensor(np.stack(frames))
     return frames
 
