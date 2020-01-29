@@ -20,7 +20,7 @@ def rd_frames(path_to_frames):
 
             #height, width, channels = frame.shape
             #print(path)
-            #print("sizeof img = {}/{}/{}".format(height, width,channels))
+            print("sizeof img = {}/{}/{}".format(height, width,channels))
             
     except Exception as e:
         print("Failed to get images with exception: {}".format(e))
