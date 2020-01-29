@@ -202,7 +202,7 @@ _C.DATA.CROP_SIZE = 56
 _C.DATA.NUM_FRAMES = 8
 
 # The video sampling rate of the input clip.
-_C.DATA.SAMPLING_RATE = 8
+_C.DATA.SAMPLING_RATE = 1
 
 # The mean value of the video raw pixels across the R G B channels.
 _C.DATA.MEAN = [0.45, 0.45, 0.45]

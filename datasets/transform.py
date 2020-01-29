@@ -16,7 +16,7 @@ def random_short_side_scale_jitter(images, min_size, max_size):
     if width < height:
         new_height = int(math.floor((float(height)/width)*size))
     else:
-        new_width = int(math.floor((float(width)/ height) * size))
+        new_width = int(math.floor((float(width)/ height)*size))
     
     return torch.nn.functional.interpolate(
         images,
