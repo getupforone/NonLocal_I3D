@@ -92,7 +92,7 @@ def main():
             )
         else:
             train(cfg=cfg)
-    if cfg .TEST.ENABLE:
+    if cfg.TEST.ENABLE:
         if cfg.NUM_GPUS > 1:
             torch.multiprocessing.spawn(
                 mpu.run,

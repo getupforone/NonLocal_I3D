@@ -27,7 +27,7 @@ def multi_view_test(test_loader, model, test_meter, cfg):
         video_idx = video_idx.cuda()
 
         preds = model(inputs)
-        if cfg.NUM_GPU > 1:
+        if cfg.NUM_GPUS > 1:
             preds, labels, video_idx = du.all_gather([preds, labels, video_idx])
 
         test_meter.iter_toc()
