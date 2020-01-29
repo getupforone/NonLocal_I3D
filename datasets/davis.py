@@ -142,8 +142,8 @@ class Davis(torch.utils.data.Dataset):
             temporal_sample_index,          #clip_idx
             self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10
             #video_meta=self._video_meta[index],    
-            fps=30,
-            target_fps=30,                  #target_fps
+            fps=1,
+            target_fps=1,                  #target_fps
             )
         # if frames is None:
         #     index = random.randint(0, len(self._path_to_videos) - 1)

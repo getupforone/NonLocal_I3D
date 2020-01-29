@@ -49,8 +49,8 @@ def get_frames(path_to_frames,
                 num_frames,     # 8
                 clip_idx=-1,
                 num_clips=10,
-                fps=30,
-                target_fps=30,
+                fps=1,
+                target_fps=1,
 ):
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
