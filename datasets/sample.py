@@ -62,7 +62,7 @@ def get_frames(path_to_frames,
     #print("frames len is {}".format(len(frames)))
     frames = cvt_frames(frames)
     #print("frames types is {}".format(type(frames)))
-    print("num_of_frames1 {}".format(frames.shape))
+    #print("num_of_frames1 {}".format(frames.shape))
     start_idx, end_idx = get_start_end_idx(
         frames.shape[0],                                    #seq_size
         num_frames * sampling_rate * target_fps / fps,      #clip_size
@@ -71,6 +71,6 @@ def get_frames(path_to_frames,
     )
 
     frames = temporal_sampling(frames,start_idx,end_idx,num_frames)
-    print("num_of_frames2 {}".format(frames.shape))
+    #print("num_of_frames2 {}".format(frames.shape))
     return frames
 
