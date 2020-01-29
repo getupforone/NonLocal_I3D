@@ -22,7 +22,7 @@ def all_reduce(tensors, average=True):
     for tensor in tensors:
         dist.all_reduce(tensor, async_op=False)
     if average:
-        world_size = dist.get_wolrd_size()
+        world_size = dist.get_world_size()
         for tensor in tensors:
             tensor.mul_(1.0 / world_size)
     return tensors
