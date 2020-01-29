@@ -125,10 +125,8 @@ class Davis(torch.utils.data.Dataset):
             
             for name in name_of_frames:
                 path_to_frame = os.path.join(seq_dir,name)
-                path_to_frames.append(path_to_frame)
-                
-            
-            path_to_frames_length = len(path_to_frames)           
+                path_to_frames.append(path_to_frame)      
+            #path_to_frames_length = len(path_to_frames)           
         except Exception as e:
             logger.info(
                 "Failed to load video from {} with error {}".format(
@@ -137,13 +135,13 @@ class Davis(torch.utils.data.Dataset):
             )
         frames = smpl.get_frames(
             path_to_frames,
-            self.cfg.DATA.SAMPLING_RATE, # sampling_rate 1
-            self.cfg.DATA.NUM_FRAMES,       #num_frames 10
+            self.cfg.DATA.SAMPLING_RATE, # sampling_rate 1 # The video sampling rate of the input clip.
+            self.cfg.DATA.NUM_FRAMES,       #num_frames 10 # The number of frames of the input clip.
             temporal_sample_index,          #clip_idx
             self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10
             #video_meta=self._video_meta[index],    
-            fps=30,
-            target_fps=30,                  #target_fps
+            fps=1,
+            target_fps=1,                  #target_fps
             )
         # if frames is None:
         #     index = random.randint(0, len(self._path_to_videos) - 1)
