@@ -330,7 +330,7 @@ class ResStage(nn.Module):
             m = getattr(self, "res{}".format(i))
             x = m(x)
             if hasattr(self, "nonlocal{}".format(i)):
-                nln = getattr("nonlocal{}".format(i))
+                nln = getattr(self,"nonlocal{}".format(i))
                 b, c, t, h, w = x.shape
                 if self.nonlocal_group[0] > 1:
                     # Fold temporal dimension into batch dimension.
