@@ -138,8 +138,7 @@ class Davis(torch.utils.data.Dataset):
             self.cfg.DATA.SAMPLING_RATE, # sampling_rate 1 # The video sampling rate of the input clip.
             self.cfg.DATA.NUM_FRAMES,       #num_frames 10 # The number of frames of the input clip.
             temporal_sample_index,          #clip_idx
-            self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10
-            #video_meta=self._video_meta[index],    
+            self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10 #video_meta=self._video_meta[index],     
             fps=1,
             target_fps=1,                  #target_fps
             )
