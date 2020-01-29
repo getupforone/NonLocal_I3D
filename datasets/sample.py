@@ -18,7 +18,7 @@ def rd_frames(path_to_frames):
             frames.append(frame)
             #print(path)
 
-            #height, width, channels = frame.shape
+            height, width, channels = frame.shape
             #print(path)
             print("sizeof img = {}/{}/{}".format(height, width,channels))
             
