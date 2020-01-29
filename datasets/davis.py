@@ -122,10 +122,12 @@ class Davis(torch.utils.data.Dataset):
         try:            
             seq_dir = self._path_to_seq_imgs[index].strip()
             name_of_frames = np.sort(os.listdir(seq_dir))
+            print("davis:__getitem__:seq_dir: {}".format(seq_dir))
             
             for name in name_of_frames:
                 path_to_frame = os.path.join(seq_dir,name)
-                path_to_frames.append(path_to_frame)      
+                path_to_frames.append(path_to_frame)   
+                print("davis:__getitem__:name: {}".format(name))   
             #path_to_frames_length = len(path_to_frames)           
         except Exception as e:
             logger.info(
