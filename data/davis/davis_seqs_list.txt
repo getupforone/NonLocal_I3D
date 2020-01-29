@@ -1,4 +1,4 @@
-/root/workspace/dataset/DAVIS/JPEGImages/480p/bear  0
+x  0
 /root/workspace/dataset/DAVIS/JPEGImages/480p/blackswan  1
 /root/workspace/dataset/DAVIS/JPEGImages/480p/bmx-bumps  2
 /root/workspace/dataset/DAVIS/JPEGImages/480p/bmx-trees  3
