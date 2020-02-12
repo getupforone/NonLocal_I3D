@@ -4,6 +4,9 @@ import torch
 def run(
     local_rank, num_proc, func, init_method, shard_id, num_shards, backend, cfg
 ):
+
+    # local_rank = process index
+    # The function is called as func(i, *args), where i is the process index and args is the passed through tuple of arguments.
     world_size = num_proc * num_shards
     rank = shard_id * num_proc + local_rank
 
