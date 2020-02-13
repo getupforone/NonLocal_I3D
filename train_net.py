@@ -16,15 +16,17 @@ from utils.meters import TrainMeter, ValMeter
 
 import utils.distributed as du
 
-
+from torch.utils.tensorboard import SummaryWriter
 
 logger = logging.get_logger(__name__)
+# default `log_dir` is "runs" - we'll be more specific here
+writer = SummaryWriter('runs/i3d_nln_8x1')
 
 def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
     model.train()
     train_meter.iter_tic()
     data_size = len(train_loader)
-
+    running_loss = 0.0
     for cur_iter, (inputs, labels, _) in enumerate(train_loader):
         # Transfer the data to the current GPU device.
         if isinstance(inputs, (list,)):
@@ -68,6 +70,13 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
 
         # Copy the stats from GPU to CPU (sync point).
         loss, top1_err, top5_err = loss.item(), top1_err.item(), top5_err.item()
+
+        running_loss += loss.item()
+        if (cur_iter % 1000 == 999) and (du.is_master_proc()):
+            writer.add_scalar('training loss', running_loss / 1000, cur_epoch * data_size + cur_iter  )
+            running_loss = 0.0
+
+
         train_meter.iter_toc()
 
         train_meter.update_stats(
@@ -146,7 +155,8 @@ def train(cfg):
     # Build the video model and print model statistics.
     model = model_builder.build_model(cfg)
     if du.is_master_proc():
-        misc.log_model_info(model)    
+        misc.log_model_info(model)
+        writer.add_graph(model)
 
     # Construct the optimizer.
     optimizer = optim.construct_optimizer(model, cfg)
@@ -182,7 +192,7 @@ def train(cfg):
 
     # Perform the training loop.
     logger.info("Start epoch: {}".format(start_epoch + 1))
-
+    
     for cur_epoch in range(start_epoch, cfg.SOLVER.MAX_EPOCH):
         loader.shuffle_dataset(train_loader, cur_epoch)
         train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg)
