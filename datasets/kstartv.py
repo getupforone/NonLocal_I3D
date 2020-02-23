@@ -51,7 +51,12 @@ class KstarTV(torch.utils.data.Dataset):
                         self._path_to_seq_imgs.append(
                             os.path.join(self.cfg.DATA.PATH_PREFIX, path)
                         )
-                        self._labels.append(int(label))
+                        intlabel = -1
+                        if label == 'True':
+                            intlabel = 1
+                        elif label  == 'False':
+                            intlabel = 0
+                        self._labels.append(int(intlabel))
                         self._spatial_temporal_idx.append(idx)
                         self._img_meta[clip_idx * self._num_clips + idx] = {}
                 elif len(path_label.split()) == 1 :
@@ -79,9 +84,9 @@ class KstarTV(torch.utils.data.Dataset):
         self,
         frames,
         spatial_idx=-1,
-        min_scale=64,#min_scale=256,
-        max_scale=80,#max_scale=320,
-        crop_size=56,#crop_size=224,
+        min_scale=256,#min_scale=256,
+        max_scale=320,#max_scale=320,
+        crop_size=224,#crop_size=224,
     ):
         assert spatial_idx in [-1, 0, 1, 2]
         if spatial_idx == -1:
@@ -187,8 +192,8 @@ class KstarTV(torch.utils.data.Dataset):
             max_scale=max_scale,
             crop_size=crop_size,
         )
-        #print("frame len ", frames.shape)
-        #print("frames len = {}".format(frames.shape[1]))
+        print("after spatial_sampling frames len ", frames.shape)
+        #print("after spatial_sampling frames len = {}".format(frames.shape[1]))
         label = self._labels[index]
         #frames = self.pack_pathway_output(frames) # this parts makes tensor to list of tensor
         return frames, label, index

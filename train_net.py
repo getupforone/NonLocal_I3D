@@ -26,6 +26,9 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
     model.train()
     train_meter.iter_tic()
     data_size = len(train_loader)
+    print("=======================================\n")
+    print("train_loader size = {}".format(data_size))
+    print("=======================================\n")
     running_loss = 0.0
     for cur_iter, (inputs, labels, _) in enumerate(train_loader):
         # Transfer the data to the current GPU device.
@@ -71,9 +74,10 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
         # Copy the stats from GPU to CPU (sync point).
         loss, top1_err, top5_err = loss.item(), top1_err.item(), top5_err.item()
 
-        running_loss += loss.item()
-        if (cur_iter % 1000 == 999) and (du.is_master_proc()):
-            writer.add_scalar('training loss', running_loss / 1000, cur_epoch * data_size + cur_iter  )
+        #running_loss += loss.item()
+        running_loss += loss
+        if (cur_iter % 10 == 9) and (du.is_master_proc()):
+            writer.add_scalar('training_loss', running_loss / 10, cur_epoch * data_size + cur_iter  )
             running_loss = 0.0
 
 
@@ -156,7 +160,7 @@ def train(cfg):
     model = model_builder.build_model(cfg)
     if du.is_master_proc():
         misc.log_model_info(model)
-        writer.add_graph(model)
+        #writer.add_graph(model)
 
     # Construct the optimizer.
     optimizer = optim.construct_optimizer(model, cfg)

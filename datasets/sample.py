@@ -9,11 +9,37 @@ def temporal_sampling(frames, start_idx, end_idx, num_samples):
     index = torch.clamp(index, 0, frames.shape[0] - 1).long()
     frames = torch.index_select(frames, 0, index)
     return frames
-    
+
+def temporal_sampling_select(seq_size, start_idx, end_idx, num_samples):
+    index = torch.linspace(start_idx, end_idx, num_samples)
+    index = torch.clamp(index, 0, seq_size - 1).long()
+    return index
+
 def rd_frames(path_to_frames):
     frames = []
     try:
         for path in path_to_frames:
+            frame = cv2.imread(path, -1) # load unchaned image
+            frames.append(frame)
+            #print(path)
+
+            #height, width, channels = frame.shape
+            #print(path)
+            #print("sizeof img = {}/{}/{}".format(height, width,channels))
+            
+    except Exception as e:
+        print("Failed to get images with exception: {}".format(e))
+        return None
+    return frames
+
+def rd_frames_select(path_to_frames, index):
+    frames = []
+    #path_to_frames_select = torch.index_select(path_to_frames, 0, index)
+    path_to_frames_np = np.array(path_to_frames)
+    path_to_frames_select = path_to_frames_np[index]
+
+    try:
+        for path in path_to_frames_select:
             frame = cv2.imread(path, -1) # load unchaned image
             frames.append(frame)
             #print(path)
@@ -56,21 +82,26 @@ def get_frames(path_to_frames,
 ):
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
-    frames = rd_frames(path_to_frames)
+    #frames = rd_frames(path_to_frames)
     
     #print("frames types is {}".format(type(frames)))
     #print("frames len is {}".format(len(frames)))
-    frames = cvt_frames(frames)
+    print("path_to_frames is {}".format(len(path_to_frames)))
+    seq_size = len(path_to_frames)
+    #frames = cvt_frames(frames)
     #print("frames types is {}".format(type(frames)))
     #print("num_of_frames1 {}".format(frames.shape))
     start_idx, end_idx = get_start_end_idx(
-        frames.shape[0],                                    #seq_size
+        seq_size, #frames.shape[0],                                    #seq_size
         num_frames * sampling_rate * target_fps / fps,      #clip_size
         clip_idx,                                           #clip_idx
         num_clips,                                          #num_clips
     )
 
-    frames = temporal_sampling(frames,start_idx,end_idx,num_frames)
-    #print("num_of_frames2 {}".format(frames.shape))
+    #frames = temporal_sampling(frames,start_idx,end_idx,num_frames)
+    index = temporal_sampling_select(seq_size,start_idx,end_idx,num_frames)
+    frames = rd_frames_select(path_to_frames, index)
+    frames = cvt_frames(frames)
+    print("num_of_frames2 {}".format(frames.shape))
     return frames
 
