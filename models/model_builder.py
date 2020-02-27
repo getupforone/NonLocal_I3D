@@ -5,6 +5,7 @@ from models.video_model_builder import ResNetModel
 
 _MODEL_TYPES = {
     "i3d": ResNetModel,
+    "slowonly": ResNetModel,
 }
 
 def build_model(cfg):

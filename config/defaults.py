@@ -38,10 +38,10 @@ _C.TRAIN = CfgNode()
 _C.TRAIN.ENABLE = True
 
 # Dataset
-_C.TRAIN.DATASET = "davis"
+_C.TRAIN.DATASET = "kstartv"
 
 # Total mini-batch size.
-_C.TRAIN.BATCH_SIZE = 64
+_C.TRAIN.BATCH_SIZE = 16
 
 # Evaluate model on test data every eval period epochs.
 _C.TRAIN.EVAL_PERIOD = 1
@@ -70,10 +70,10 @@ _C.TEST = CfgNode()
 _C.TEST.ENABLE = True
 
 # Dataset for testing.
-_C.TEST.DATASET = "davis"
+_C.TEST.DATASET = "kstartv"
 
 # Total mini-batch size
-_C.TEST.BATCH_SIZE = 8
+_C.TEST.BATCH_SIZE = 16
 
 # Path to the checkpoint to load the initial weight.
 _C.TEST.CHECKPOINT_FILE_PATH = ""
@@ -145,7 +145,7 @@ _C.MODEL = CfgNode()
 _C.MODEL.ARCH = "i3d"
 
 # The number of classes to predict for the model.
-_C.MODEL.NUM_CLASSES = 50
+_C.MODEL.NUM_CLASSES = 2
 
 # Loss function.
 _C.MODEL.LOSS_FUNC = "cross_entropy"
@@ -196,13 +196,13 @@ _C.DATA.PATH_TO_DATA_DIR = ""
 _C.DATA.PATH_PREFIX = ""
 
 # The spatial crop size of the input clip.
-_C.DATA.CROP_SIZE = 56
+_C.DATA.CROP_SIZE = 224
 
 # The number of frames of the input clip.
 _C.DATA.NUM_FRAMES = 8
 
 # The video sampling rate of the input clip.
-_C.DATA.SAMPLING_RATE = 1
+_C.DATA.SAMPLING_RATE = 2
 
 # The mean value of the video raw pixels across the R G B channels.
 _C.DATA.MEAN = [0.45, 0.45, 0.45]
@@ -214,13 +214,13 @@ _C.DATA.INPUT_CHANNEL_NUM = [3, 3]
 _C.DATA.STD = [0.225, 0.225, 0.225]
 
 # The spatial augmentation jitter scales for training.
-_C.DATA.TRAIN_JITTER_SCALES = [64, 80]
+_C.DATA.TRAIN_JITTER_SCALES = [256, 320]
 
 # The spatial crop size for training.
-_C.DATA.TRAIN_CROP_SIZE = 56
+_C.DATA.TRAIN_CROP_SIZE = 224
 
 # The spatial crop size for testing.
-_C.DATA.TEST_CROP_SIZE = 64
+_C.DATA.TEST_CROP_SIZE = 256
 
 
 # ---------------------------------------------------------------------------- #
@@ -279,7 +279,7 @@ _C.SOLVER.OPTIMIZING_METHOD = "sgd"
 # ---------------------------------------------------------------------------- #
 
 # Number of GPUs to use (applies to both training and testing).
-_C.NUM_GPUS = 1
+_C.NUM_GPUS = 2
 
 # Number of machine to use for the job.
 _C.NUM_SHARDS = 1

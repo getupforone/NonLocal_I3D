@@ -15,9 +15,17 @@ _TEMPORAL_KERNEL_BASIS = {
         [[3, 1]],   #res4 temporal kernel.
         [[1, 3]],   #res5 temporal kernel.
     ],
+    "slowonly": [
+        [[1]],      #conv1 temporal kernel.
+        [[1]],      #res2 temporal kernel.
+        [[1]],   #res3 temporal kernel.
+        [[3]],   #res4 temporal kernel.
+        [[3]],   #res5 temporal kernel.
+    ],
 }
 _POOL1 = {
     "i3d": [[2, 1, 1]],
+    "slowonly": [[1, 1, 1]],
 }
 
 class ResNetModel(nn.Module):
@@ -38,7 +46,7 @@ class ResNetModel(nn.Module):
         num_groups = cfg.RESNET.NUM_GROUPS
         width_per_group = cfg.RESNET.WIDTH_PER_GROUP
         dim_inner = num_groups * width_per_group
-
+        print("arch : {}".format(cfg.MODEL.ARCH))
         temp_kernel = _TEMPORAL_KERNEL_BASIS[cfg.MODEL.ARCH]
 
         self.s1 = stem_helper.VideoModelStem(
@@ -66,7 +74,8 @@ class ResNetModel(nn.Module):
             inplace_relu=cfg.RESNET.INPLACE_RELU,
         )
         pool = nn.MaxPool3d(
-            kernel_size=pool_size[0], stride=pool_size[0],padding=[0,0,0],
+            #kernel_size=pool_size[0], stride=pool_size[0],padding=[0,0,0],
+            kernel_size=[1,3,3], stride=pool_size[0],padding=[0,0,0],
         )
         self.add_module("pool", pool)
 
@@ -131,13 +140,35 @@ class ResNetModel(nn.Module):
             dropout_rate=cfg.MODEL.DROPOUT_RATE,
             act_func="softmax",
         )
+        # print("pool_size z! : {}".format(pool_size))
+        # print("pool_size[0][1] z! : {}".format(pool_size[0][1]))
+        # print(" cfg.DATA.CROP_SIZE z! : {}".format( cfg.DATA.CROP_SIZE))
+        # print("pool_size zz : {}".format([
+        #         cfg.DATA.NUM_FRAMES // pool_size[0][0],
+        #         cfg.DATA.CROP_SIZE // 32 // pool_size[0][1],
+        #         cfg.DATA.CROP_SIZE // 32 // pool_size[0][2],
+        #     ]))
+        # print("\n=======================================")
+        # print("resnet : NUM_CLASSES ={}".format(cfg.MODEL.NUM_CLASSES))
+        # print("=======================================\n")
+        
+
     def forward(self, x):
+        #print("s0 :x dim  = {}".format(x.shape))
         x = self.s1(x)
+        #print("s1 :x dim  = {}".format(x.shape))
         x = self.s2(x)
+        #print("s2 :x dim  = {}".format(x.shape))
         pool = getattr(self, "pool")
         x = pool(x)
+        #print("pool :x dim  = {}".format(x.shape))
         x = self.s3(x)
+        #print("s3 :x dim  = {}".format(x.shape))
         x = self.s4(x)
+        #print("s4 :x dim  = {}".format(x.shape))
         x = self.s5(x)
+        #print("s5 :x dim  = {}".format(x.shape))
         x = self.head(x)
+        #print("head :x dim  = {}".format(x.shape))
+        
         return x

@@ -26,10 +26,11 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
     model.train()
     train_meter.iter_tic()
     data_size = len(train_loader)
-    print("=======================================\n")
-    print("train_loader size = {}".format(data_size))
-    print("=======================================\n")
+    # print("=======================================\n")
+    # print("train_loader size = {}".format(data_size))
+    # print("=======================================\n")
     running_loss = 0.0
+    running_top1_err = 0.0
     for cur_iter, (inputs, labels, _) in enumerate(train_loader):
         # Transfer the data to the current GPU device.
         if isinstance(inputs, (list,)):
@@ -48,9 +49,11 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
         # Explicitly declare reduction to mean
         loss_fun = losses.get_loss_func(cfg.MODEL.LOSS_FUNC)(reduction="mean")
         
+        #print("shape of preds = {}".format(preds.shape))
+        #print("shape of labels = {}".format(labels.shape))
         # Compute the loss
         loss = loss_fun(preds, labels)
-
+        #print("shape of loss = {}".format(loss.shape))
         # Check Nan Loss.
         misc.check_nan_losses(loss)
 
@@ -60,9 +63,13 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
 
         # Update the parameters.
         optimizer.step()
-
+        # print("=======================================\n")
+        # print("TRAIN: inputs shape = {}".format(inputs.shape))
+        # print("TRAIN: preds shape = {}".format(preds.shape))
+        # print("TRAIN: labels shape = {}".format(labels.shape))
+        # print("=======================================\n")
         # Compute the erros.
-        num_topks_correct = metrics.topks_correct(preds, labels, (1, 5))
+        num_topks_correct = metrics.topks_correct(preds, labels, (1, 2))
         top1_err, top5_err = [
             (1.0 - x / preds.size(0)) * 100.0 for x in num_topks_correct
         ]
@@ -76,9 +83,12 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
 
         #running_loss += loss.item()
         running_loss += loss
+        running_top1_err += top1_err
         if (cur_iter % 10 == 9) and (du.is_master_proc()):
-            writer.add_scalar('training_loss', running_loss / 10, cur_epoch * data_size + cur_iter  )
+            writer.add_scalar('train/loss', running_loss / 10, cur_epoch * data_size + cur_iter  )
+            writer.add_scalar('train/top1_err', running_top1_err / 10, cur_epoch * data_size + cur_iter  )
             running_loss = 0.0
+            running_top1_err = 0.0
 
 
         train_meter.iter_toc()
@@ -109,7 +119,13 @@ def eval_epoch(val_loader, model, val_meter, cur_epoch, cfg):
         # Compute the predictions.
         preds = model(inputs)
         # Compute the errors.
-        num_topks_correct = metrics.topks_correct(preds, labels, (1, 5))
+        # print("=======================================\n")
+        # print("EVAL: inputs shape = {}".format(inputs.shape))
+        # print("EVAL: preds shape = {}".format(preds.shape))
+        # print("EVAL: labels shape = {}".format(labels.shape))
+        # print("=======================================\n")
+        num_topks_correct = metrics.topks_correct(preds, labels, (1, 2))
+
 
         # Combine the errors across the GPUs.
         top1_err, top5_err = [
@@ -160,7 +176,10 @@ def train(cfg):
     model = model_builder.build_model(cfg)
     if du.is_master_proc():
         misc.log_model_info(model)
-        #writer.add_graph(model)
+        # dummy_input = torch.Tensor(1, 3, 3, 224, 224)
+        # writer.add_graph(model, (dummy_input, ))
+
+
 
     # Construct the optimizer.
     optimizer = optim.construct_optimizer(model, cfg)

@@ -10,7 +10,8 @@ logger = logging.get_logger(__name__)
 
 def make_checkpoint_dir(path_to_job):
     checkpoint_dir = os.path.join(path_to_job,"checkpoints")
-    os.makedirs(checkpoint_dir)
+    if not os.path.exists(checkpoint_dir):
+        os.makedirs(checkpoint_dir)
     return checkpoint_dir
 
 def get_checkpoint_dir(path_to_job):

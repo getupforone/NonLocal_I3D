@@ -86,7 +86,7 @@ def get_frames(path_to_frames,
     
     #print("frames types is {}".format(type(frames)))
     #print("frames len is {}".format(len(frames)))
-    print("path_to_frames is {}".format(len(path_to_frames)))
+    #print("path_to_frames is {}".format(len(path_to_frames)))
     seq_size = len(path_to_frames)
     #frames = cvt_frames(frames)
     #print("frames types is {}".format(type(frames)))
@@ -102,6 +102,6 @@ def get_frames(path_to_frames,
     index = temporal_sampling_select(seq_size,start_idx,end_idx,num_frames)
     frames = rd_frames_select(path_to_frames, index)
     frames = cvt_frames(frames)
-    print("num_of_frames2 {}".format(frames.shape))
+    #print("num_of_frames2 {}".format(frames.shape))
     return frames
 

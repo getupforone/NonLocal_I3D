@@ -49,7 +49,7 @@ class TestMeter(object):
     def iter_toc(self):
         self.iter_timer.pause()
 
-    def finalize_metrics(self, ks=(1,5)):
+    def finalize_metrics(self, ks=(1,2)):
         if not all(self.clip_count == self.num_clips):
             logger.warning(
                 "clip count {} ~= num clips {}".format(

@@ -15,7 +15,7 @@ class KstarTV(torch.utils.data.Dataset):
     def __init__(self, cfg, mode):
         assert mode in [
             "train","val","test"
-        ], "split '{}' not supported for Davis".format(mode)
+        ], "split '{}' not supported for kstartv".format(mode)
         self.mode = mode
         self.cfg = cfg
 
@@ -30,7 +30,7 @@ class KstarTV(torch.utils.data.Dataset):
             self._num_clips = (
                 cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS
             )
-        logger.info("Constructing Davis {}...".format(mode))
+        logger.info("Constructing kstartv {}...".format(mode))
         self._construct_loader()
 
     def _construct_loader(self):
@@ -192,7 +192,7 @@ class KstarTV(torch.utils.data.Dataset):
             max_scale=max_scale,
             crop_size=crop_size,
         )
-        print("after spatial_sampling frames len ", frames.shape)
+        #print("after spatial_sampling frames len ", frames.shape)
         #print("after spatial_sampling frames len = {}".format(frames.shape[1]))
         label = self._labels[index]
         #frames = self.pack_pathway_output(frames) # this parts makes tensor to list of tensor
