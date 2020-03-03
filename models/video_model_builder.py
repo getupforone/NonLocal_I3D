@@ -168,7 +168,7 @@ class ResNetModel(nn.Module):
         #print("s4 :x dim  = {}".format(x.shape))
         x = self.s5(x)
         #print("s5 :x dim  = {}".format(x.shape))
-        x = self.head(x)
+        x,feat,fc_w = self.head(x)
         #print("head :x dim  = {}".format(x.shape))
         
-        return x
+        return x,feat,fc_w

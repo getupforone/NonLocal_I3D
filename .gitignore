@@ -1,3 +1,4 @@
 checkpoints/
 runs/
+results/
 *.pyc

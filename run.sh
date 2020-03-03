@@ -1,6 +1,6 @@
 #!/bin/bash
-#rm -rf ./checkpoints
-#rm -rf ./runs
+rm -rf ./checkpoints
+rm -rf ./runs
 sleep 1
 git pull
 sleep 1
