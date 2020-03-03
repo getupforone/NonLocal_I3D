@@ -1,0 +1,973 @@
+Already up to date.
+[INFO: train_net.py:  172]: Train with config:
+[INFO: train_net.py:  172]: Train with config:
+[INFO: train_net.py:  173]: {'BN': {'EPSILON': 1e-05,
+        'MOMENTUM': 0.1,
+        'NUM_BATCHES_PRECISE': 64,
+        'USE_PRECISE_STATS': True,
+        'WEIGHT_DECAY': 0.0},
+ 'DATA': {'CROP_SIZE': 224,
+          'INPUT_CHANNEL_NUM': [3],
+          'MEAN': [0.45, 0.45, 0.45],
+          'NUM_FRAMES': 8,
+          'PATH_PREFIX': '',
+          'PATH_TO_DATA_DIR': '/data/KSTAR_TV_DATASET/dirlist',
+          'SAMPLING_RATE': 2,
+          'STD': [0.225, 0.225, 0.225],
+          'TEST_CROP_SIZE': 256,
+          'TRAIN_CROP_SIZE': 224,
+          'TRAIN_JITTER_SCALES': [256, 320]},
+ 'DATA_LOADER': CfgNode({'NUM_WORKERS': 12, 'PIN_MEMORY': True}),
+ 'DIST_BACKEND': 'nccl',
+ 'LOG_PERIOD': 10,
+ 'MODEL': {'ARCH': 'i3d',
+           'DROPOUT_RATE': 0.5,
+           'FC_INIT_STD': 0.01,
+           'LOSS_FUNC': 'cross_entropy',
+           'MULTI_PATHWAY_ARCH': ['slowfast'],
+           'NUM_CLASSES': 2,
+           'SINGLE_PATHWAY_ARCH': ['c2d', 'i3d', 'slowonly']},
+ 'NONLOCAL': {'GROUP': [[1], [1], [1], [1]],
+              'INSTANTIATION': 'softmax',
+              'LOCATION': [[[]], [[1, 3]], [[1, 3, 5]], [[]]]},
+ 'NUM_GPUS': 2,
+ 'NUM_SHARDS': 1,
+ 'OUTPUT_DIR': '.',
+ 'RESNET': {'DEPTH': 50,
+            'INPLACE_RELU': True,
+            'NUM_BLOCK_TEMP_KERNEL': [[3], [4], [6], [3]],
+            'NUM_GROUPS': 1,
+            'STRIDE_1X1': False,
+            'TRANS_FUNC': 'bottleneck_transform',
+            'WIDTH_PER_GROUP': 64,
+            'ZERO_INIT_FINAL_BN': True},
+ 'RNG_SEED': 0,
+ 'SHARD_ID': 0,
+ 'SLOWFAST': {'ALPHA': 8,
+              'BETA_INV': 8,
+              'FUSION_CONV_CHANNEL_RATIO': 2,
+              'FUSION_KERNEL_SZ': 5},
+ 'SOLVER': {'BASE_LR': 0.1,
+            'DAMPENING': 0.0,
+            'GAMMA': 0.1,
+            'LRS': [],
+            'LR_POLICY': 'cosine',
+            'MAX_EPOCH': 196,
+            'MOMENTUM': 0.9,
+            'NESTEROV': True,
+            'OPTIMIZING_METHOD': 'sgd',
+            'STEPS': [],
+            'STEP_SIZE': 1,
+            'WARMUP_EPOCHS': 37,
+            'WARMUP_FACTOR': 0.1,
+            'WARMUP_START_LR': 0.001,
+            'WEIGHT_DECAY': 0.0001},
+ 'TEST': {'BATCH_SIZE': 16,
+          'CHECKPOINT_FILE_PATH': '',
+          'CHECKPOINT_TYPE': 'pytorch',
+          'DATASET': 'kstartv',
+          'ENABLE': True,
+          'NUM_ENSEMBLE_VIEWS': 10,
+          'NUM_SPATIAL_CROPS': 3},
+ 'TRAIN': {'AUTO_RESUME': True,
+           'BATCH_SIZE': 16,
+           'CHECKPOINT_FILE_PATH': '',
+           'CHECKPOINT_INFLATE': False,
+           'CHECKPOINT_PERIOD': 1,
+           'CHECKPOINT_TYPE': 'pytorch',
+           'DATASET': 'kstartv',
+           'ENABLE': True,
+           'EVAL_PERIOD': 10}}
+[INFO: train_net.py:  173]: {'BN': {'EPSILON': 1e-05,
+        'MOMENTUM': 0.1,
+        'NUM_BATCHES_PRECISE': 64,
+        'USE_PRECISE_STATS': True,
+        'WEIGHT_DECAY': 0.0},
+ 'DATA': {'CROP_SIZE': 224,
+          'INPUT_CHANNEL_NUM': [3],
+          'MEAN': [0.45, 0.45, 0.45],
+          'NUM_FRAMES': 8,
+          'PATH_PREFIX': '',
+          'PATH_TO_DATA_DIR': '/data/KSTAR_TV_DATASET/dirlist',
+          'SAMPLING_RATE': 2,
+          'STD': [0.225, 0.225, 0.225],
+          'TEST_CROP_SIZE': 256,
+          'TRAIN_CROP_SIZE': 224,
+          'TRAIN_JITTER_SCALES': [256, 320]},
+ 'DATA_LOADER': CfgNode({'NUM_WORKERS': 12, 'PIN_MEMORY': True}),
+ 'DIST_BACKEND': 'nccl',
+ 'LOG_PERIOD': 10,
+ 'MODEL': {'ARCH': 'i3d',
+           'DROPOUT_RATE': 0.5,
+           'FC_INIT_STD': 0.01,
+           'LOSS_FUNC': 'cross_entropy',
+           'MULTI_PATHWAY_ARCH': ['slowfast'],
+           'NUM_CLASSES': 2,
+           'SINGLE_PATHWAY_ARCH': ['c2d', 'i3d', 'slowonly']},
+ 'NONLOCAL': {'GROUP': [[1], [1], [1], [1]],
+              'INSTANTIATION': 'softmax',
+              'LOCATION': [[[]], [[1, 3]], [[1, 3, 5]], [[]]]},
+ 'NUM_GPUS': 2,
+ 'NUM_SHARDS': 1,
+ 'OUTPUT_DIR': '.',
+ 'RESNET': {'DEPTH': 50,
+            'INPLACE_RELU': True,
+            'NUM_BLOCK_TEMP_KERNEL': [[3], [4], [6], [3]],
+            'NUM_GROUPS': 1,
+            'STRIDE_1X1': False,
+            'TRANS_FUNC': 'bottleneck_transform',
+            'WIDTH_PER_GROUP': 64,
+            'ZERO_INIT_FINAL_BN': True},
+ 'RNG_SEED': 0,
+ 'SHARD_ID': 0,
+ 'SLOWFAST': {'ALPHA': 8,
+              'BETA_INV': 8,
+              'FUSION_CONV_CHANNEL_RATIO': 2,
+              'FUSION_KERNEL_SZ': 5},
+ 'SOLVER': {'BASE_LR': 0.1,
+            'DAMPENING': 0.0,
+            'GAMMA': 0.1,
+            'LRS': [],
+            'LR_POLICY': 'cosine',
+            'MAX_EPOCH': 196,
+            'MOMENTUM': 0.9,
+            'NESTEROV': True,
+            'OPTIMIZING_METHOD': 'sgd',
+            'STEPS': [],
+            'STEP_SIZE': 1,
+            'WARMUP_EPOCHS': 37,
+            'WARMUP_FACTOR': 0.1,
+            'WARMUP_START_LR': 0.001,
+            'WEIGHT_DECAY': 0.0001},
+ 'TEST': {'BATCH_SIZE': 16,
+          'CHECKPOINT_FILE_PATH': '',
+          'CHECKPOINT_TYPE': 'pytorch',
+          'DATASET': 'kstartv',
+          'ENABLE': True,
+          'NUM_ENSEMBLE_VIEWS': 10,
+          'NUM_SPATIAL_CROPS': 3},
+ 'TRAIN': {'AUTO_RESUME': True,
+           'BATCH_SIZE': 16,
+           'CHECKPOINT_FILE_PATH': '',
+           'CHECKPOINT_INFLATE': False,
+           'CHECKPOINT_PERIOD': 1,
+           'CHECKPOINT_TYPE': 'pytorch',
+           'DATASET': 'kstartv',
+           'ENABLE': True,
+           'EVAL_PERIOD': 10}}
+arch : i3d
+[INFO: train_net.py:  189]: Load from last checkpoint.
+arch : i3d
+[INFO: misc.py:   23]: Model:
+DistributedDataParallel(
+  (module): ResNetModel(
+    (s1): VideoModelStem(
+      (stem): ResNetBasicStem(
+        (conv): Conv3d(3, 64, kernel_size=[5, 7, 7], stride=[1, 2, 2], padding=[2, 3, 3], bias=False)
+        (bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (pool_layer): MaxPool3d(kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], dilation=1, ceil_mode=False)
+      )
+    )
+    (s2): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(64, 256, kernel_size=(1, 1, 1), stride=[1, 1, 1], bias=False)
+        (branch1_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(64, 64, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(64, 64, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(64, 256, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(256, 64, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(64, 64, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(64, 256, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(256, 64, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(64, 64, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(64, 256, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (pool): MaxPool3d(kernel_size=[1, 3, 3], stride=[2, 1, 1], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+    (s3): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=[1, 2, 2], bias=False)
+        (branch1_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(256, 128, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 128, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal1): Nonlocal(
+        (conv_theta): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 128, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res3): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 128, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal3): Nonlocal(
+        (conv_theta): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+    )
+    (s4): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=[1, 2, 2], bias=False)
+        (branch1_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 256, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal1): Nonlocal(
+        (conv_theta): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res3): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal3): Nonlocal(
+        (conv_theta): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+      (res4): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res5): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal5): Nonlocal(
+        (conv_theta): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+    )
+    (s5): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(1024, 2048, kernel_size=(1, 1, 1), stride=[1, 2, 2], bias=False)
+        (branch1_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 512, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(512, 512, kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(512, 2048, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(2048, 512, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(512, 512, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(512, 2048, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(2048, 512, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(512, 512, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(512, 2048, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (head): ResNetBasicHead(
+      (avgpool): AvgPool3d(kernel_size=[4, 7, 7], stride=1, padding=0)
+      (dropout): Dropout(p=0.5, inplace=False)
+      (projection): Linear(in_features=2048, out_features=2, bias=True)
+      (act): Softmax(dim=4)
+    )
+  )
+)
+[INFO: misc.py:   24]: Params: 34,586,434
+[INFO: misc.py:   25]: Mem: 267.51513671875 MB
+[INFO: misc.py:   26]: nvdia-smi
+Mon Mar  2 18:08:00 2020       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 430.40       Driver Version: 430.40       CUDA Version: 10.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce RTX 207...  Off  | 00000000:0A:00.0 Off |                  N/A |
+|  0%   43C    P2    38W / 215W |   1091MiB /  7982MiB |      7%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce RTX 207...  Off  | 00000000:42:00.0 Off |                  N/A |
+|  0%   42C    P2    52W / 215W |   1091MiB /  7979MiB |      7%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      3665      C   /root/anaconda3/bin/python                  1081MiB |
+|    1      3666      C   /root/anaconda3/bin/python                  1081MiB |
++-----------------------------------------------------------------------------+
+[INFO: train_net.py:  189]: Load from last checkpoint.
+[INFO: kstartv.py:   33]: Constructing kstartv train...
+[INFO: kstartv.py:   76]: Constructing davis dataloader (size: 1043) from /data/KSTAR_TV_DATASET/dirlist/train.txt
+[INFO: kstartv.py:   33]: Constructing kstartv val...
+[INFO: kstartv.py:   76]: Constructing davis dataloader (size: 66) from /data/KSTAR_TV_DATASET/dirlist/val.txt
+[INFO: train_net.py:  217]: Start epoch: 197
+[INFO: kstartv.py:   33]: Constructing kstartv train...
+[INFO: kstartv.py:   76]: Constructing davis dataloader (size: 1043) from /data/KSTAR_TV_DATASET/dirlist/train.txt
+[INFO: kstartv.py:   33]: Constructing kstartv val...
+[INFO: kstartv.py:   76]: Constructing davis dataloader (size: 66) from /data/KSTAR_TV_DATASET/dirlist/val.txt
+[INFO: train_net.py:  217]: Start epoch: 197
+[INFO: test_net.py:   51]: Test with config:
+[INFO: test_net.py:   52]: BN:
+  EPSILON: 1e-05
+  MOMENTUM: 0.1
+  NUM_BATCHES_PRECISE: 64
+  USE_PRECISE_STATS: True
+  WEIGHT_DECAY: 0.0
+DATA:
+  CROP_SIZE: 224
+  INPUT_CHANNEL_NUM: [3]
+  MEAN: [0.45, 0.45, 0.45]
+  NUM_FRAMES: 8
+  PATH_PREFIX: 
+  PATH_TO_DATA_DIR: /data/KSTAR_TV_DATASET/dirlist
+  SAMPLING_RATE: 2
+  STD: [0.225, 0.225, 0.225]
+  TEST_CROP_SIZE: 256
+  TRAIN_CROP_SIZE: 224
+  TRAIN_JITTER_SCALES: [256, 320]
+DATA_LOADER:
+  NUM_WORKERS: 12
+  PIN_MEMORY: True
+DIST_BACKEND: nccl
+LOG_PERIOD: 10
+MODEL:
+  ARCH: i3d
+  DROPOUT_RATE: 0.5
+  FC_INIT_STD: 0.01
+  LOSS_FUNC: cross_entropy
+  MULTI_PATHWAY_ARCH: ['slowfast']
+  NUM_CLASSES: 2
+  SINGLE_PATHWAY_ARCH: ['c2d', 'i3d', 'slowonly']
+NONLOCAL:
+  GROUP: [[1], [1], [1], [1]]
+  INSTANTIATION: softmax
+  LOCATION: [[[]], [[1, 3]], [[1, 3, 5]], [[]]]
+NUM_GPUS: 2
+NUM_SHARDS: 1
+OUTPUT_DIR: .
+RESNET:
+  DEPTH: 50
+  INPLACE_RELU: True
+  NUM_BLOCK_TEMP_KERNEL: [[3], [4], [6], [3]]
+  NUM_GROUPS: 1
+  STRIDE_1X1: False
+  TRANS_FUNC: bottleneck_transform
+  WIDTH_PER_GROUP: 64
+  ZERO_INIT_FINAL_BN: True
+RNG_SEED: 0
+SHARD_ID: 0
+SLOWFAST:
+  ALPHA: 8
+  BETA_INV: 8
+  FUSION_CONV_CHANNEL_RATIO: 2
+  FUSION_KERNEL_SZ: 5
+SOLVER:
+  BASE_LR: 0.1
+  DAMPENING: 0.0
+  GAMMA: 0.1
+  LRS: []
+  LR_POLICY: cosine
+  MAX_EPOCH: 196
+  MOMENTUM: 0.9
+  NESTEROV: True
+  OPTIMIZING_METHOD: sgd
+  STEPS: []
+  STEP_SIZE: 1
+  WARMUP_EPOCHS: 37
+  WARMUP_FACTOR: 0.1
+  WARMUP_START_LR: 0.001
+  WEIGHT_DECAY: 0.0001
+TEST:
+  BATCH_SIZE: 16
+  CHECKPOINT_FILE_PATH: 
+  CHECKPOINT_TYPE: pytorch
+  DATASET: kstartv
+  ENABLE: True
+  NUM_ENSEMBLE_VIEWS: 10
+  NUM_SPATIAL_CROPS: 3
+TRAIN:
+  AUTO_RESUME: True
+  BATCH_SIZE: 16
+  CHECKPOINT_FILE_PATH: 
+  CHECKPOINT_INFLATE: False
+  CHECKPOINT_PERIOD: 1
+  CHECKPOINT_TYPE: pytorch
+  DATASET: kstartv
+  ENABLE: True
+  EVAL_PERIOD: 10
+[INFO: test_net.py:   51]: Test with config:
+[INFO: test_net.py:   52]: BN:
+  EPSILON: 1e-05
+  MOMENTUM: 0.1
+  NUM_BATCHES_PRECISE: 64
+  USE_PRECISE_STATS: True
+  WEIGHT_DECAY: 0.0
+DATA:
+  CROP_SIZE: 224
+  INPUT_CHANNEL_NUM: [3]
+  MEAN: [0.45, 0.45, 0.45]
+  NUM_FRAMES: 8
+  PATH_PREFIX: 
+  PATH_TO_DATA_DIR: /data/KSTAR_TV_DATASET/dirlist
+  SAMPLING_RATE: 2
+  STD: [0.225, 0.225, 0.225]
+  TEST_CROP_SIZE: 256
+  TRAIN_CROP_SIZE: 224
+  TRAIN_JITTER_SCALES: [256, 320]
+DATA_LOADER:
+  NUM_WORKERS: 12
+  PIN_MEMORY: True
+DIST_BACKEND: nccl
+LOG_PERIOD: 10
+MODEL:
+  ARCH: i3d
+  DROPOUT_RATE: 0.5
+  FC_INIT_STD: 0.01
+  LOSS_FUNC: cross_entropy
+  MULTI_PATHWAY_ARCH: ['slowfast']
+  NUM_CLASSES: 2
+  SINGLE_PATHWAY_ARCH: ['c2d', 'i3d', 'slowonly']
+NONLOCAL:
+  GROUP: [[1], [1], [1], [1]]
+  INSTANTIATION: softmax
+  LOCATION: [[[]], [[1, 3]], [[1, 3, 5]], [[]]]
+NUM_GPUS: 2
+NUM_SHARDS: 1
+OUTPUT_DIR: .
+RESNET:
+  DEPTH: 50
+  INPLACE_RELU: True
+  NUM_BLOCK_TEMP_KERNEL: [[3], [4], [6], [3]]
+  NUM_GROUPS: 1
+  STRIDE_1X1: False
+  TRANS_FUNC: bottleneck_transform
+  WIDTH_PER_GROUP: 64
+  ZERO_INIT_FINAL_BN: True
+RNG_SEED: 0
+SHARD_ID: 0
+SLOWFAST:
+  ALPHA: 8
+  BETA_INV: 8
+  FUSION_CONV_CHANNEL_RATIO: 2
+  FUSION_KERNEL_SZ: 5
+SOLVER:
+  BASE_LR: 0.1
+  DAMPENING: 0.0
+  GAMMA: 0.1
+  LRS: []
+  LR_POLICY: cosine
+  MAX_EPOCH: 196
+  MOMENTUM: 0.9
+  NESTEROV: True
+  OPTIMIZING_METHOD: sgd
+  STEPS: []
+  STEP_SIZE: 1
+  WARMUP_EPOCHS: 37
+  WARMUP_FACTOR: 0.1
+  WARMUP_START_LR: 0.001
+  WEIGHT_DECAY: 0.0001
+TEST:
+  BATCH_SIZE: 16
+  CHECKPOINT_FILE_PATH: 
+  CHECKPOINT_TYPE: pytorch
+  DATASET: kstartv
+  ENABLE: True
+  NUM_ENSEMBLE_VIEWS: 10
+  NUM_SPATIAL_CROPS: 3
+TRAIN:
+  AUTO_RESUME: True
+  BATCH_SIZE: 16
+  CHECKPOINT_FILE_PATH: 
+  CHECKPOINT_INFLATE: False
+  CHECKPOINT_PERIOD: 1
+  CHECKPOINT_TYPE: pytorch
+  DATASET: kstartv
+  ENABLE: True
+  EVAL_PERIOD: 10
+arch : i3d
+[INFO: misc.py:   23]: Model:
+DistributedDataParallel(
+  (module): ResNetModel(
+    (s1): VideoModelStem(
+      (stem): ResNetBasicStem(
+        (conv): Conv3d(3, 64, kernel_size=[5, 7, 7], stride=[1, 2, 2], padding=[2, 3, 3], bias=False)
+        (bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (relu): ReLU(inplace=True)
+        (pool_layer): MaxPool3d(kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], dilation=1, ceil_mode=False)
+      )
+    )
+    (s2): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(64, 256, kernel_size=(1, 1, 1), stride=[1, 1, 1], bias=False)
+        (branch1_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(64, 64, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(64, 64, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(64, 256, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(256, 64, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(64, 64, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(64, 256, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(256, 64, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(64, 64, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(64, 256, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (pool): MaxPool3d(kernel_size=[1, 3, 3], stride=[2, 1, 1], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+    (s3): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=[1, 2, 2], bias=False)
+        (branch1_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(256, 128, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 128, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal1): Nonlocal(
+        (conv_theta): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 128, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res3): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 128, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(128, 128, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(128, 512, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal3): Nonlocal(
+        (conv_theta): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(512, 256, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+    )
+    (s4): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=[1, 2, 2], bias=False)
+        (branch1_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(512, 256, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal1): Nonlocal(
+        (conv_theta): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res3): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal3): Nonlocal(
+        (conv_theta): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+      (res4): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res5): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 256, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(256, 256, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(256, 1024, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (nonlocal5): Nonlocal(
+        (conv_theta): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_phi): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_g): Conv3d(1024, 512, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (conv_out): Conv3d(512, 1024, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (bn): BatchNorm3d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (pool): MaxPool3d(kernel_size=[1, 2, 2], stride=[1, 2, 2], padding=[0, 0, 0], dilation=1, ceil_mode=False)
+      )
+    )
+    (s5): ResStage(
+      (res0): ResBlock(
+        (branch1): Conv3d(1024, 2048, kernel_size=(1, 1, 1), stride=[1, 2, 2], bias=False)
+        (branch1_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (branch2): BottleneckTransform(
+          (a): Conv3d(1024, 512, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(512, 512, kernel_size=[1, 3, 3], stride=[1, 2, 2], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(512, 2048, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res1): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(2048, 512, kernel_size=[3, 1, 1], stride=(1, 1, 1), padding=[1, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(512, 512, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(512, 2048, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+      (res2): ResBlock(
+        (branch2): BottleneckTransform(
+          (a): Conv3d(2048, 512, kernel_size=[1, 1, 1], stride=(1, 1, 1), padding=[0, 0, 0], bias=False)
+          (a_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (a_relu): ReLU(inplace=True)
+          (b): Conv3d(512, 512, kernel_size=[1, 3, 3], stride=[1, 1, 1], padding=[0, 1, 1], bias=False)
+          (b_bn): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (b_relu): ReLU(inplace=True)
+          (c): Conv3d(512, 2048, kernel_size=[1, 1, 1], stride=[1, 1, 1], padding=[0, 0, 0], bias=False)
+          (c_bn): BatchNorm3d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (relu): ReLU(inplace=True)
+      )
+    )
+    (head): ResNetBasicHead(
+      (avgpool): AvgPool3d(kernel_size=[4, 7, 7], stride=1, padding=0)
+      (dropout): Dropout(p=0.5, inplace=False)
+      (projection): Linear(in_features=2048, out_features=2, bias=True)
+      (act): Softmax(dim=4)
+    )
+  )
+)
+[INFO: misc.py:   24]: Params: 34,586,434
+[INFO: misc.py:   25]: Mem: 267.51513671875 MB
+[INFO: misc.py:   26]: nvdia-smi
+Mon Mar  2 18:08:07 2020       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 430.40       Driver Version: 430.40       CUDA Version: 10.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce RTX 207...  Off  | 00000000:0A:00.0 Off |                  N/A |
+|  0%   44C    P2    38W / 215W |   1091MiB /  7982MiB |      8%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce RTX 207...  Off  | 00000000:42:00.0 Off |                  N/A |
+|  0%   42C    P2    52W / 215W |   1091MiB /  7979MiB |      7%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      3699      C   /root/anaconda3/bin/python                  1081MiB |
+|    1      3700      C   /root/anaconda3/bin/python                  1081MiB |
++-----------------------------------------------------------------------------+
+arch : i3d
+[INFO: kstartv.py:   33]: Constructing kstartv test...
+[INFO: kstartv.py:   76]: Constructing davis dataloader (size: 5850) from /data/KSTAR_TV_DATASET/dirlist/test.txt
+[INFO: test_net.py:   83]: Testing model for 366 iterations
+[INFO: kstartv.py:   33]: Constructing kstartv test...
+[INFO: kstartv.py:   76]: Constructing davis dataloader (size: 5850) from /data/KSTAR_TV_DATASET/dirlist/test.txt
+[INFO: test_net.py:   83]: Testing model for 366 iterations

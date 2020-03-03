@@ -35,11 +35,11 @@ class ResNetBasicHead(nn.Module):
     def forward(self, inputs):
         #pool_out = []
         m = getattr(self, "avgpool")
-        #print("head : dim-1 = {}".format(inputs.shape))
+        print("head : dim-1 = {}".format(inputs.shape))
         #pool_out.append(m(inputs))
         #x = torch.cat(pool_out, 1)
         x = m(inputs)
-        #print("head : dim0 = {}".format(x.shape))
+        print("head : dim0 = {}".format(x.shape))
         # (N, C, T, H, W) -> (N, T, H, W, C).
         x = x.permute((0, 2, 3, 4, 1))
 
@@ -47,7 +47,7 @@ class ResNetBasicHead(nn.Module):
             x = self.dropout(x)
         x = self.projection(x)
 
-        #print("head : dim1 = {}".format(x.shape))
+        print("head : dim1 = {}".format(x.shape))
         if not self.training:
             x = self.act(x)
             x = x.mean([1, 2, 3])
@@ -55,11 +55,11 @@ class ResNetBasicHead(nn.Module):
     
         #x = self.act(x)
         #x = x.mean([1, 2, 3])
-        #print("head : dim2 = {}".format(x.shape))
+        print("head : dim2 = {}".format(x.shape))
         #print("x val1 = {}".format(x))
         x = x.view(x.shape[0], -1)
         #print("x val2 = {}".format(x))
         
-        #print("head : dim3 = {}".format(x.shape))
+        print("head : dim3 = {}".format(x.shape))
 
         return x

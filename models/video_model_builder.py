@@ -15,17 +15,17 @@ _TEMPORAL_KERNEL_BASIS = {
         [[3, 1]],   #res4 temporal kernel.
         [[1, 3]],   #res5 temporal kernel.
     ],
-    "slowonly": [
-        [[1]],      #conv1 temporal kernel.
-        [[1]],      #res2 temporal kernel.
-        [[1]],   #res3 temporal kernel.
-        [[3]],   #res4 temporal kernel.
-        [[3]],   #res5 temporal kernel.
-    ],
+    # "slowonly": [
+    #     [[1]],      #conv1 temporal kernel.
+    #     [[1]],      #res2 temporal kernel.
+    #     [[1]],   #res3 temporal kernel.
+    #     [[3]],   #res4 temporal kernel.
+    #     [[3]],   #res5 temporal kernel.
+    # ],
 }
 _POOL1 = {
     "i3d": [[2, 1, 1]],
-    "slowonly": [[1, 1, 1]],
+    # "slowonly": [[1, 1, 1]],
 }
 
 class ResNetModel(nn.Module):
