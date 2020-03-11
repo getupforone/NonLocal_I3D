@@ -35,6 +35,7 @@ class ResNetModel(nn.Module):
         init_helper.init_weight(
             self, cfg.MODEL.FC_INIT_STD, cfg.RESNET.ZERO_INIT_FINAL_BN
         )
+        
     
     def _construct_network(self, cfg):
         assert cfg.MODEL.ARCH in _POOL1.keys()
@@ -43,11 +44,13 @@ class ResNetModel(nn.Module):
 
         (d2, d3, d4, d5) = _MODEL_STAGE_DEPTH[cfg.RESNET.DEPTH]
 
+        self.isCAMTest = cfg.TEST.IS_CAM_TEST
         num_groups = cfg.RESNET.NUM_GROUPS
         width_per_group = cfg.RESNET.WIDTH_PER_GROUP
         dim_inner = num_groups * width_per_group
         print("arch : {}".format(cfg.MODEL.ARCH))
         temp_kernel = _TEMPORAL_KERNEL_BASIS[cfg.MODEL.ARCH]
+
 
         self.s1 = stem_helper.VideoModelStem(
             dim_in=cfg.DATA.INPUT_CHANNEL_NUM,
@@ -139,6 +142,7 @@ class ResNetModel(nn.Module):
             ],
             dropout_rate=cfg.MODEL.DROPOUT_RATE,
             act_func="softmax",
+            is_cam_test = cfg.TEST.IS_CAM_TEST
         )
         # print("pool_size z! : {}".format(pool_size))
         # print("pool_size[0][1] z! : {}".format(pool_size[0][1]))
@@ -168,7 +172,11 @@ class ResNetModel(nn.Module):
         #print("s4 :x dim  = {}".format(x.shape))
         x = self.s5(x)
         #print("s5 :x dim  = {}".format(x.shape))
-        x,feat,fc_w = self.head(x)
+        if self.isCAMTest == True:
+            x,feat,fc_w = self.head(x)
+            return x,feat,fc_w
+        else :
+            x = self.head(x)
         #print("head :x dim  = {}".format(x.shape))
         
-        return x,feat,fc_w
+        return x

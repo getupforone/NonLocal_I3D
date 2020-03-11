@@ -9,7 +9,9 @@ class ResNetBasicHead(nn.Module):
         pool_size,
         dropout_rate=0.0,
         act_func="softmax",
+        is_cam_test=False,
     ):
+        self.isCamTest = is_cam_test
         super(ResNetBasicHead, self).__init__()
         # assert(
         #     len({len(pool_size), len(dim_in)})== 1
@@ -32,13 +34,14 @@ class ResNetBasicHead(nn.Module):
                 "{} is not supported as an activation"
                 "function.".format(act_func)
             )
-    def forward(self, inputs):
+    def forward(self, inputs ):
         #pool_out = []
         m = getattr(self, "avgpool")
         print("head : dim-1 = {}".format(inputs.shape))
         #pool_out.append(m(inputs))
         #x = torch.cat(pool_out, 1)
         x = m(inputs)
+
         print("head : dim0 = {}".format(x.shape))
         # (N, C, T, H, W) -> (N, T, H, W, C).
         x = x.permute((0, 2, 3, 4, 1))
@@ -46,23 +49,27 @@ class ResNetBasicHead(nn.Module):
         if hasattr(self, "dropout"):
             x = self.dropout(x)
         x = self.projection(x)
-        fc_w = self.projection.weight
-        print("fc_w dim = {}".format(fc_w.shape))
-        print("fc_w[0] = {}".format(fc_w[0]))
 
-        print("head : dim1 = {}".format(x.shape))
+        if self.isCamTest == True:
+            fc_w = self.projection.weight
+            print("fc_w dim = {}".format(fc_w.shape))
+            print("fc_w[0] = {}".format(fc_w[0]))
+            print("head : dim1 = {}".format(x.shape))
+
         if not self.training:
             x = self.act(x)
             x = x.mean([1, 2, 3])
 
-    
-        #x = self.act(x)
-        #x = x.mean([1, 2, 3])
-        print("head : dim2 = {}".format(x.shape))
-        #print("x val1 = {}".format(x))
+        if self.isCamTest == True:
+            #x = self.act(x)
+            #x = x.mean([1, 2, 3])
+            print("head : dim2 = {}".format(x.shape))
+            #print("x val1 = {}".format(x))
+
         x = x.view(x.shape[0], -1)
         #print("x val2 = {}".format(x))
-        
-        print("head : dim3 = {}".format(x.shape))
-
-        return x,input,fc_w
+            
+        if self.isCamTest == True:
+            print("head : dim3 = {}".format(x.shape))
+            return x,inputs,fc_w
+        return x
