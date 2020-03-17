@@ -4,6 +4,7 @@ import torch
 from models.video_model_builder import ResNetModel
 
 _MODEL_TYPES = {
+    "c2d": ResNetModel,
     "i3d": ResNetModel,
     "slowonly": ResNetModel,
 }

@@ -44,7 +44,10 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
         optim.set_lr(optimizer, lr)
 
         # Perform the forward pass.
-        preds,feat,fc_w = model(inputs)
+        if cfg.TEST.IS_CAM_TEST == True:
+            preds,feat,fc_w = model(inputs)
+        else:
+            preds = model(inputs)
 
         # Explicitly declare reduction to mean
         loss_fun = losses.get_loss_func(cfg.MODEL.LOSS_FUNC)(reduction="mean")
@@ -117,7 +120,10 @@ def eval_epoch(val_loader, model, val_meter, cur_epoch, cfg):
         labels = labels.cuda()
 
         # Compute the predictions.
-        preds,feat,fc_w = model(inputs)
+        if cfg.TEST.IS_CAM_TEST == True:
+            preds,feat,fc_w = model(inputs)
+        else:
+            preds = model(inputs)
         # Compute the errors.
         # print("=======================================\n")
         # print("EVAL: inputs shape = {}".format(inputs.shape))

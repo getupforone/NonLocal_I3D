@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/root/anaconda3/bin/python"
+    "python.pythonPath": "/root/anaconda3/bin/python",
+    "python.dataScience.jupyterServerURI": "https://getupfor1.duckdns.org:9009"
 }
