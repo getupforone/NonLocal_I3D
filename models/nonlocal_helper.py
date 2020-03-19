@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class Nonlocal(nn.Module):
     def __init__(
         self,
@@ -70,6 +71,13 @@ class Nonlocal(nn.Module):
 
         theta = self.conv_theta(x)
 
+        # A subsampling trick can be used to futher reduce computation.
+        # We perform this in the spatial domain. which  can reduce the amount of
+        # pairwise computation by 1/4.
+        # This Can be done by adding a max pooling layer after pi and g 
+        # but this trick does not change the image dimension.
+        #theta(THWX512) x pi(T'H'W'x512) = THW xT'H'W'
+        #thetapi(THW xT'H'W') xg(T'H'W'x 512) = THWx512
         if self.use_pool:
             x = self.pool(x)
         

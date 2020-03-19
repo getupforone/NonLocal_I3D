@@ -86,8 +86,8 @@ class ResNetModel(nn.Module):
             inplace_relu=cfg.RESNET.INPLACE_RELU,
         )
         pool = nn.MaxPool3d(
-            #kernel_size=pool_size[0], stride=pool_size[0],padding=[0,0,0],
-            kernel_size=[1,3,3], stride=pool_size[0],padding=[0,0,0],
+            kernel_size=pool_size[0], stride=pool_size[0],padding=[0,0,0],
+            #kernel_size=[1,3,3], stride=pool_size[0],padding=[0,0,0],
         )
         self.add_module("pool", pool)
 
