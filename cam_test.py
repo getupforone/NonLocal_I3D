@@ -58,14 +58,20 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
         # ouput : ( 4, 7, 7, 2048) * (2048) = (4,7,7)
         output = torch.matmul(feat_per,fc_w_wide)
         print("output shape = {}".format(output.shape))
-        upsample2=nn.Upsample(scale_factor = (2,1,1), mode = 'trilinear')
+
         output_unsqz =torch.unsqueeze(output,0) 
         output_unsqz =torch.unsqueeze(output_unsqz,0)
         print(output_unsqz.shape)
-        up_img_temp = upsample2(output_unsqz)
-        # up_img_temp : (8,7,7)
-        #up_img_temp = upsample2(output)
-        print(up_img_temp.shape)
+
+        if output.shape[0] != cfg.DATA.NUM_FRAMES :
+            scale_num = cfg.DATA.NUM_FRAMES//output.shape[0]
+            upsample2=nn.Upsample(scale_factor = (scale_num,1,1), mode = 'trilinear')
+            up_img_temp = upsample2(output_unsqz)
+            # up_img_temp : (8,7,7)
+            #up_img_temp = upsample2(output)
+            print(up_img_temp.shape)
+        else:
+            up_img_temp = output_unsqz
 
         upsample=nn.Upsample(scale_factor = (32,32), mode = 'bilinear')
         up_img_temp_sqz = torch.squeeze(up_img_temp,0)
@@ -96,7 +102,6 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
         result_np_img = ((up_img.cpu()).detach()).numpy()
         labels  = ((labels.cpu()).detach()).numpy()
        
-        
         
         print("result_np_img type is {} dtype is {}".format(type(result_np_img), result_np_img.dtype))
         fig, ax = plt.subplots()
