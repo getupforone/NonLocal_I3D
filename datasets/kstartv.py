@@ -56,6 +56,8 @@ class KstarTV(torch.utils.data.Dataset):
                             intlabel = 1
                         elif label  == 'False':
                             intlabel = 0
+                        elif label == 'Disrupt':
+                            intlabel = 2
                         self._labels.append(int(intlabel))
                         self._spatial_temporal_idx.append(idx)
                         self._img_meta[clip_idx * self._num_clips + idx] = {}
