@@ -168,25 +168,25 @@ class ResNetModel(nn.Module):
         
 
     def forward(self, x):
-        #print("s0 :x dim  = {}".format(x.shape))
+        # print("s0 :x dim  = {}".format(x.shape))
         x = self.s1(x)
-        #print("s1 :x dim  = {}".format(x.shape))
+        # print("s1 :x dim  = {}".format(x.shape))
         x = self.s2(x)
-        #print("s2 :x dim  = {}".format(x.shape))
+        # print("s2 :x dim  = {}".format(x.shape))
         pool = getattr(self, "pool")
         x = pool(x)
-        #print("pool :x dim  = {}".format(x.shape))
+        # print("pool :x dim  = {}".format(x.shape))
         x = self.s3(x)
-        #print("s3 :x dim  = {}".format(x.shape))
+        # print("s3 :x dim  = {}".format(x.shape))
         x = self.s4(x)
-        #print("s4 :x dim  = {}".format(x.shape))
+        # print("s4 :x dim  = {}".format(x.shape))
         x = self.s5(x)
-        #print("s5 :x dim  = {}".format(x.shape))
+        # print("s5 :x dim  = {}".format(x.shape))
         if self.isCAMTest == True:
             x,feat,fc_w = self.head(x)
             return x,feat,fc_w
         else :
             x = self.head(x)
-        #print("head :x dim  = {}".format(x.shape))
+        # print("head :x dim  = {}".format(x.shape))
         
         return x

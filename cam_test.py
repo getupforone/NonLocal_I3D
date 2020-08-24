@@ -14,9 +14,9 @@ import cv2
 import os
 
 logger = logging.get_logger(__name__)
-TARGET_DIR = "./results/kstartv_i3d_nln_16_8_2_224"
-RESULT_IMG_DIR = "./results/kstartv_i3d_nln_16_8_2_224/img"
-RESULT_MULTI_IMG_DIR = "./results/kstartv_i3d_nln_16_8_2_224/multi_img"
+TARGET_DIR = "."
+RESULT_IMG_DIR = "./img"
+RESULT_MULTI_IMG_DIR = "./img"
 import multiprocessing as mp
 def upsample(in_img, in_scale_factor= (2,32,32)):
     upsample = nn.Upsample( scale_factor = in_scale_factor, mode = "bilinear")
@@ -81,9 +81,15 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
         up_img = torch.squeeze(up_img,0)
         print("up_img shape = {}".format(up_img.shape))
         print(up_img)
+       
+       
         up_img_num = up_img.shape[0]
         v_idx = video_idx.item()
-        shot_num = path_to_seq_imgs[v_idx]
+        #p_idx = (int)(v_idx/(cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS)) 
+        p_idx = v_idx # we did not spatial clop for the test session
+        print("".format())
+        print("v_idx = {}/ p_idx = {}/ path_to_seq_imgs size = {}/size of DataLoader = {}".format(v_idx,p_idx, len(path_to_seq_imgs),len(test_loader)))
+        shot_num = path_to_seq_imgs[p_idx]
         img_dir = os.path.join(RESULT_IMG_DIR,shot_num)
         if os.path.exists(img_dir):
             print("dir {} exists".format(img_dir))
@@ -119,14 +125,21 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
         xlabels = ["xlabel", "(a)","(b)","(c)","(d)","(e)","(f)","(h)","(i)"]
         for img_idx in range(up_img_num):
             img_name = "{}_{}_{}_{}.jpg".format(shot_num,v_idx,cur_iter,img_idx)
+            norm_img_name = "{}_{}_{}_{}_norm.jpg".format(shot_num,v_idx,cur_iter,img_idx)
             
             img_path = os.path.join(img_dir,img_name)
+            norm_img_path = os.path.join(img_dir,norm_img_name)
+
             print("img_path : {}".format(img_path))
-            im_gray = (result_np_img[img_idx]).astype('uint8')
-            im_color = cv2.applyColorMap(im_gray, cv2.COLORMAP_JET)
+            #im_gray = (result_np_img[img_idx]).astype('uint8')
+            im_gray = (result_np_img[img_idx])
+            norm_img = (cv2.normalize(im_gray,im_gray,0,255,norm_type=cv2.NORM_MINMAX)).astype('uint8')
+            im_color = cv2.applyColorMap(norm_img, cv2.COLORMAP_JET)
+            #im_color = cv2.applyColorMap(im_gray, cv2.COLORMAP_JET)
             
             
             cv2.imwrite(img_path,im_color)
+            cv2.imwrite(norm_img_path,norm_img)
             
             xlab_idx = img_idx % 8 +1
             ax = fig.add_subplot(rows, cols, xlab_idx)
@@ -184,6 +197,7 @@ def cam_test(cfg):
                 _path_to_seq_imgs.append(
                     os.path.join(name)
                 )
-                #print("dir name = {}".format(name))
+                # print("dir name = {}".format(name))
 
+    print("size of _path_to_seq_imgs = {}".format(len(_path_to_seq_imgs)))
     cam_view_test(test_loader, model,  cfg,_path_to_seq_imgs)

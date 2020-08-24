@@ -31,7 +31,9 @@ def get_last_checkpoint(path_to_job):
 
 def has_checkpoint(path_to_job):
     d = get_checkpoint_dir(path_to_job)
+
     files = os.listdir(d) if os.path.exists(d) else []
+
     return any("checkpoint" in f for f in files)
 
 def is_checkpoint_epoch(cur_epoch, checkpoint_period):
