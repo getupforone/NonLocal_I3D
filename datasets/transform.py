@@ -69,3 +69,5 @@ def uniform_crop(images, size, spatial_idx):
         :, :, y_offset : y_offset + size, x_offset : x_offset + size
     ]
     return cropped
+
+

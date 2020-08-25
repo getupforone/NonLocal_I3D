@@ -32,7 +32,7 @@ def rd_frames(path_to_frames):
         return None
     return frames
 
-def rd_frames_select(path_to_frames, index):
+def rd_frames_select(path_to_frames, index,rz_size):
     frames = []
     #path_to_frames_select = torch.index_select(path_to_frames, 0, index)
     path_to_frames_np = np.array(path_to_frames)
@@ -41,7 +41,11 @@ def rd_frames_select(path_to_frames, index):
     try:
         for path in path_to_frames_select:
             frame = cv2.imread(path, -1) # load unchaned image
-            frames.append(frame)
+            if rz_size !=-1:
+                rz_frame = resize_frame(frame,rz_size)
+                frames.append(rz_frame)
+            else:
+                frames.append(frame)
             #print(path)
 
             #height, width, channels = frame.shape
@@ -52,6 +56,10 @@ def rd_frames_select(path_to_frames, index):
         print("Failed to get images with exception: {}".format(e))
         return None
     return frames
+
+def resize_frame(frame, rz_size):
+    rz_img = cv2.resize(frame,(rz_size,rz_size),interpolation = cv2.INTER_CUBIC)
+    return rz_img
 
 def cvt_frames(frames):
     #cv2.imshow('frame',frames[0])
@@ -79,6 +87,7 @@ def get_frames(path_to_frames,
                 num_clips=10,
                 fps=1,
                 target_fps=1,
+                rz_size,
 ):
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
@@ -100,7 +109,7 @@ def get_frames(path_to_frames,
 
     #frames = temporal_sampling(frames,start_idx,end_idx,num_frames)
     index = temporal_sampling_select(seq_size,start_idx,end_idx,num_frames)
-    frames = rd_frames_select(path_to_frames, index)
+    frames = rd_frames_select(path_to_frames, index,rz_size)
     frames = cvt_frames(frames)
     #print("num_of_frames2 {}".format(frames.shape))
     return frames

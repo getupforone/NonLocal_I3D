@@ -85,19 +85,26 @@ def test(cfg):
     test_loader = loader.construct_loader(cfg, "test")
     logger.info("Testing model for {} iterations".format(len(test_loader)))
 
-    assert(
-        len(test_loader.dataset)
-        % (cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS)
-        == 0
-    )
-
+    # assert(
+    #     len(test_loader.dataset)
+    #     % (cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS)
+    #     == 0
+    # )
+    # def __init__(self, num_videos, num_clips, num_cls, overall_iters):
     test_meter = TestMeter(
-        len(test_loader.dataset)
-        // (cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS),
-        cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS,
+        len(test_loader.dataset),
+        1,
         cfg.MODEL.NUM_CLASSES,
         len(test_loader),
     )
+
+    # test_meter = TestMeter(
+    #     len(test_loader.dataset)
+    #     // (cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS),
+    #     cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS,
+    #     cfg.MODEL.NUM_CLASSES,
+    #     len(test_loader),
+    # )
 
     multi_view_test(test_loader, model, test_meter, cfg)
 

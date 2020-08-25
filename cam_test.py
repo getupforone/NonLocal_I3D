@@ -21,7 +21,7 @@ import multiprocessing as mp
 def upsample(in_img, in_scale_factor= (2,32,32)):
     upsample = nn.Upsample( scale_factor = in_scale_factor, mode = "bilinear")
 
-def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
+def cam_view_test(test_loader, model, cfg, path_to_seq_imgs, cur_epoch):
     model.eval()
     
     for cur_iter, (inputs, labels, video_idx) in enumerate(test_loader):
@@ -49,7 +49,7 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
         print("preds_idx shape = {}".format(preds_idx.shape))
         print("preds_idx  = {}".format(preds_idx))
         # fc_w_wide : (8, 2048 )
-        fc_w_wide = fc_w[preds_idx] 
+        fc_w_wide = fc_w[preds_idx] # True label weight. we'd better plot false label case.
         print("fc_w_wide shape = {}".format(fc_w_wide.shape))
         # feat : (8, 2048, 4, 7, 7)
         # feat_per : (8, 4, 7, 7, 2048)
@@ -87,7 +87,7 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
         v_idx = video_idx.item()
         #p_idx = (int)(v_idx/(cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS)) 
         p_idx = v_idx # we did not spatial clop for the test session
-        print("".format())
+
         print("v_idx = {}/ p_idx = {}/ path_to_seq_imgs size = {}/size of DataLoader = {}".format(v_idx,p_idx, len(path_to_seq_imgs),len(test_loader)))
         shot_num = path_to_seq_imgs[p_idx]
         img_dir = os.path.join(RESULT_IMG_DIR,shot_num)
@@ -116,37 +116,59 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs):
             img_label = 'True'
         else:
             img_label = 'False'
-        fig_title = "kstartv_i3d_nln_16_8_2_224_{}_{}".format(img_label,shot_num)
+        fig_title = "kstartv_i3d_nln_16_8_2_224_{}_{}_{}".format(img_label,shot_num,cur_epoch)
         plt.rcParams['figure.figsize'] = [16, 16]
         plt.title(fig_title)
         plt.axis('off')
-        rows=2
-        cols=4
-        xlabels = ["xlabel", "(a)","(b)","(c)","(d)","(e)","(f)","(h)","(i)"]
-        for img_idx in range(up_img_num):
-            img_name = "{}_{}_{}_{}.jpg".format(shot_num,v_idx,cur_iter,img_idx)
-            norm_img_name = "{}_{}_{}_{}_norm.jpg".format(shot_num,v_idx,cur_iter,img_idx)
-            
-            img_path = os.path.join(img_dir,img_name)
-            norm_img_path = os.path.join(img_dir,norm_img_name)
+        #up_img_num = num of batch 4,6,8,10,12
+        disp_img_num = up_img_num*2
+        rows = 4
+        cols = 0
+        if disp_img_num%4 !=0:
+            cols = int(disp_img_num/4) + 1
+        else:
+            cols = int(disp_img_num/4)
+        print("rows/cols = ({}/{})".format(rows,cols))
 
-            print("img_path : {}".format(img_path))
+        xlabels = ["xlabel", "(a) img","(b)img","(c)img","(d)img","(e)img","(f)img","(h)img","(i)img"]
+        xlabels2 = ["xlabel2", "(a) cam","(b)cam","(c)cam","(d)cam","(e)cam","(f)cam","(h)cam","(i)cam"]
+        for img_idx in range(up_img_num):
+            img_name = "{}_{}_{}_{}_{}.jpg".format(shot_num,v_idx,cur_iter,img_idx,cur_epoch)
+            norm_img_name = "{}_{}_{}_{}_{}_norm.jpg".format(shot_num,v_idx,cur_iter,img_idx,cur_epoch)           
+            img_path = os.path.join(img_dir,img_name)
+            # print("img_path : {}".format(img_path))
+            norm_img_path = os.path.join(img_dir,norm_img_name)
+            
             #im_gray = (result_np_img[img_idx]).astype('uint8')
             im_gray = (result_np_img[img_idx])
             norm_img = (cv2.normalize(im_gray,im_gray,0,255,norm_type=cv2.NORM_MINMAX)).astype('uint8')
-            im_color = cv2.applyColorMap(norm_img, cv2.COLORMAP_JET)
             #im_color = cv2.applyColorMap(im_gray, cv2.COLORMAP_JET)
-            
-            
+            im_color = cv2.applyColorMap(norm_img, cv2.COLORMAP_JET)                        
             cv2.imwrite(img_path,im_color)
             cv2.imwrite(norm_img_path,norm_img)
+
+            #img_idx 0~7            
+            xlab_idx = img_idx % 8 +1     #xlab_idx 1~8                
+            ax = fig.add_subplot(rows, cols, img_idx + 1)
             
-            xlab_idx = img_idx % 8 +1
-            ax = fig.add_subplot(rows, cols, xlab_idx)
-            ax.imshow(input_img[img_idx], alpha=0.7)
-            ax.imshow(result_np_img[img_idx], cmap='jet', alpha=0.3)
+            ax.imshow(input_img[img_idx]) 
             ax.set_xlabel(xlabels[xlab_idx])
+            ax.set_xticks([]), ax.set_yticks([])  
+            
+ 
+        for img_idx in range(up_img_num):            
+            sub_img_idx = img_idx + up_img_num #8~15     
+                   
+            ax = fig.add_subplot(rows, cols, sub_img_idx + 1)
+            
+            ax.imshow(input_img[img_idx], alpha=0.6)
+            heatmap = ax.pcolor(result_np_img[img_idx],cmap='jet')
+            
+            ax.imshow(result_np_img[img_idx], cmap='jet', alpha=0.4)
+            ax.set_xlabel(xlabels2[xlab_idx])                      
             ax.set_xticks([]), ax.set_yticks([])    
+            cbar = plt.colorbar(heatmap)
+        # cbar.set_label('Color Intensity')
 
             # ax.set_title(img_name) 
         #plt.show()
@@ -177,11 +199,11 @@ def cam_test(cfg):
     test_loader = loader.construct_loader(cfg, "test")
     logger.info("Testing model for {} iterations".format(len(test_loader)))
 
-    assert(
-        len(test_loader.dataset)
-        % (cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS)
-        == 0
-    )
+    # assert(
+    #     len(test_loader.dataset)
+    #     % (cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS)
+    #     == 0
+    # )
 
     path_to_file = os.path.join(
     cfg.DATA.PATH_TO_DATA_DIR, "{}.txt".format("test")
@@ -199,5 +221,14 @@ def cam_test(cfg):
                 )
                 # print("dir name = {}".format(name))
 
+
+    
     print("size of _path_to_seq_imgs = {}".format(len(_path_to_seq_imgs)))
-    cam_view_test(test_loader, model,  cfg,_path_to_seq_imgs)
+
+    start_epoch = 0
+    # Perform the training loop.
+    logger.info("Start epoch: {}".format(start_epoch + 1))
+
+    for cur_epoch in range(start_epoch, cfg.SOLVER.MAX_EPOCH):
+        # loader.shuffle_dataset(test_loader, cur_epoch)
+        cam_view_test(test_loader, model,  cfg,_path_to_seq_imgs,cur_epoch)

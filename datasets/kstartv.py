@@ -24,12 +24,15 @@ class KstarTV(torch.utils.data.Dataset):
         # video. For every clip, NIM_SPATIAL_CROPS is cropped spatially from
         # the frames
         self._img_meta = {}
-        if self.mode in ["train", "val"]:
-            self._num_clips = 1
-        elif self.mode in ["test"]:
-            self._num_clips = (
-                cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS
-            )
+        
+        self._num_clips = 1
+        
+        # if self.mode in ["train", "val"]:
+        #     self._num_clips = 1
+        # elif self.mode in ["test"]:
+        #     self._num_clips = (
+        #         cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS
+        #     )
         logger.info("Constructing kstartv {}...".format(mode))
         self._construct_loader()
 
@@ -180,6 +183,7 @@ class KstarTV(torch.utils.data.Dataset):
             self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10 #video_meta=self._video_meta[index],     
             fps=1,
             target_fps=1,                  #target_fps
+            crop_size,
             )
         # if frames is None:
         #     index = random.randint(0, len(self._path_to_videos) - 1)
@@ -191,13 +195,14 @@ class KstarTV(torch.utils.data.Dataset):
         # T H W C -> C T H W
         frames = frames.permute(3, 0, 1, 2)
 
-        frames = self.spatial_sampling(
-            frames,
-            spatial_idx=spatial_sample_index,
-            min_scale=min_scale,
-            max_scale=max_scale,
-            crop_size=crop_size,
-        )
+        # frames = self.spatial_sampling(
+        #     frames,
+        #     spatial_idx=spatial_sample_index,
+        #     min_scale=min_scale,
+        #     max_scale=max_scale,
+        #     crop_size=crop_size,
+        # )
+
         #print("after spatial_sampling frames len ", frames.shape)
         #print("after spatial_sampling frames len = {}".format(frames.shape[1]))
         label = self._labels[index]
