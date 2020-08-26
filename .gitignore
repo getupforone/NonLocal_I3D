@@ -1,4 +1,5 @@
 checkpoints/
 runs/
 results/
+img/
 *.pyc

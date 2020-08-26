@@ -183,7 +183,7 @@ class KstarTV(torch.utils.data.Dataset):
             self.cfg.TEST.NUM_ENSEMBLE_VIEWS,   #num_clips = 10 #video_meta=self._video_meta[index],     
             fps=1,
             target_fps=1,                  #target_fps
-            crop_size,
+            rz_size= crop_size,
             )
         # if frames is None:
         #     index = random.randint(0, len(self._path_to_videos) - 1)

@@ -24,12 +24,14 @@ class KstarTV3(torch.utils.data.Dataset):
         # video. For every clip, NIM_SPATIAL_CROPS is cropped spatially from
         # the frames
         self._img_meta = {}
-        if self.mode in ["train", "val"]:
-            self._num_clips = 1
-        elif self.mode in ["test"]:
-            self._num_clips = (
-                cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS
-            )
+
+        self._num_clips = 1
+        # if self.mode in ["train", "val"]:
+        #     self._num_clips = 1
+        # elif self.mode in ["test"]:
+        #     self._num_clips = (
+        #         cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS
+        #     )
         logger.info("Constructing kstartv {}...".format(mode))
         self._construct_loader()
 
@@ -92,6 +94,8 @@ class KstarTV3(torch.utils.data.Dataset):
                             # self._labels.append(int(-1))
                             # self._spatial_temporal_idx.append(idx)
                             # self._img_meta[clip_idx * self._num_clips + idx] = {}
+                    else:
+                        print("kstar3::_construct_loader::path_label is invalid {}\n".format(path_label))
             self._img_path_lol.append(list(tmp_path_list))
             self._img_label.append(int(intlabel))
             self._img_spatial_temporal_idx_lol.append(list(tmp_st_idx_list))
@@ -148,32 +152,42 @@ class KstarTV3(torch.utils.data.Dataset):
             index (int): if the images provided by pytorch sampler can be 
                 read, then return the index of the images. 
         """
-        if self.mode in ["train", "val"]:
+        # if self.mode in ["train", "val"]:
+        #     temporal_sample_index = -1
+        #     spatial_sample_index = -1
+        #     min_scale = self.cfg.DATA.TRAIN_JITTER_SCALES[0]
+        #     max_scale = self.cfg.DATA.TRAIN_JITTER_SCALES[1]
+        #     crop_size = self.cfg.DATA.TRAIN_CROP_SIZE
+        # elif self.mode in ["test"]:
+        #     temporal_sample_index = (
+        #         self._spatial_temporal_idx[index]
+        #         // self.cfg.TEST.NUM_SPATIAL_CROPS
+        #     )
+            
+        #     # spatial_sample_index is in [0, 1, 2]. Corresponding to left,
+        #     # center, or right if width is larger than height, and top, middle,
+        #     # or bottom if height is larger than width
+            
+        #     spatial_sample_index = (
+        #         self._spatial_temporal_idx[index]
+        #         % self.cfg.TEST.NUM_SPATIAL_CROPS
+        #     )
+
+        #     # The testing is deterministic and no jitter should be performed.
+        #     # min_scale, max_scale, and crop_size are expect to be the same
+
+        #     min_scale, max_scale, crop_size = [self.cfg.DATA.TEST_CROP_SIZE] * 3
+        #     assert len({min_scale, max_scale, crop_size}) == 1
+        # else:
+        #     raise NotImplementedError(
+        #         "Does not support {} mode".format(self.mode)    
+        #     )
+        if self.mode in ["train", "val","test"]:
             temporal_sample_index = -1
             spatial_sample_index = -1
             min_scale = self.cfg.DATA.TRAIN_JITTER_SCALES[0]
             max_scale = self.cfg.DATA.TRAIN_JITTER_SCALES[1]
             crop_size = self.cfg.DATA.TRAIN_CROP_SIZE
-        elif self.mode in ["test"]:
-            temporal_sample_index = (
-                self._spatial_temporal_idx[index]
-                // self.cfg.TEST.NUM_SPATIAL_CROPS
-            )
-            
-            # spatial_sample_index is in [0, 1, 2]. Corresponding to left,
-            # center, or right if width is larger than height, and top, middle,
-            # or bottom if height is larger than width
-            
-            spatial_sample_index = (
-                self._spatial_temporal_idx[index]
-                % self.cfg.TEST.NUM_SPATIAL_CROPS
-            )
-
-            # The testing is deterministic and no jitter should be performed.
-            # min_scale, max_scale, and crop_size are expect to be the same
-
-            min_scale, max_scale, crop_size = [self.cfg.DATA.TEST_CROP_SIZE] * 3
-            assert len({min_scale, max_scale, crop_size}) == 1
         else:
             raise NotImplementedError(
                 "Does not support {} mode".format(self.mode)    
@@ -216,13 +230,13 @@ class KstarTV3(torch.utils.data.Dataset):
         # T H W C -> C T H W
         frames = frames.permute(3, 0, 1, 2)
 
-        frames = self.spatial_sampling(
-            frames,
-            spatial_idx=spatial_sample_index,
-            min_scale=min_scale,
-            max_scale=max_scale,
-            crop_size=crop_size,
-        )
+        # frames = self.spatial_sampling(
+        #     frames,
+        #     spatial_idx=spatial_sample_index,
+        #     min_scale=min_scale,
+        #     max_scale=max_scale,
+        #     crop_size=crop_size,
+        # )
         #print("after spatial_sampling frames len ", frames.shape)
         #print("after spatial_sampling frames len = {}".format(frames.shape[1]))
         label = self._labels[index]

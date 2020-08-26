@@ -58,6 +58,9 @@ def rd_frames_select(path_to_frames, index,rz_size):
     return frames
 
 def resize_frame(frame, rz_size):
+    height, width, channels = frame.shape
+    if height == rz_size and width== rz_size:
+        return frame
     rz_img = cv2.resize(frame,(rz_size,rz_size),interpolation = cv2.INTER_CUBIC)
     return rz_img
 
@@ -87,7 +90,7 @@ def get_frames(path_to_frames,
                 num_clips=10,
                 fps=1,
                 target_fps=1,
-                rz_size,
+                rz_size=244,
 ):
     assert clip_idx >= -1, "Not valid clip_idx {}".format(clip_idx)
     frames = None
