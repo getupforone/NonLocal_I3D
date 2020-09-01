@@ -46,7 +46,7 @@ MODEL:
   DROPOUT_RATE: 0.5
 TEST:
   ENABLE: True
-  DATASET: kstartv
+  DATASET: kstartv3
   BATCH_SIZE: 16
   IS_CAM_TEST: False
 DATA_LOADER:

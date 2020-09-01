@@ -45,12 +45,18 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs, cur_epoch):
         # print("feat shape = {}".format(feat.shape))
         # print("fc_w shape = {}".format(fc_w.shape))
         preds = torch.squeeze(preds)
+        print(">>> preds is {}".format(preds))
         #preds_idx = torch.argmax(preds, dim=1)
         preds_idx = torch.argmax(preds)
         # print("preds_idx shape = {}".format(preds_idx.shape))
         # print("preds_idx  = {}".format(preds_idx))
         # # fc_w_wide : (8, 2048 )
         fc_w_wide = fc_w[preds_idx] # True label weight. we'd better plot false label case.
+        pred = preds[preds_idx]
+        if preds_idx == 0:
+            pred_false = preds[1]
+        else:
+            pred_false = preds[0]
         del preds_idx
         # print("fc_w_wide shape = {}".format(fc_w_wide.shape))
         # # feat : (8, 2048, 4, 7, 7)
@@ -131,36 +137,37 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs, cur_epoch):
         else:
             img_label = 'False'
         del labels
-        fig_title = "kstartv_i3d_nln_16_8_2_224_{}_{}_{}".format(img_label,shot_num,cur_epoch)
+        fig_title = "kstartv_i3d_nln_16_8_2_224_{}_{}_{}_{}".format(img_label,shot_num,cur_epoch,pred)
+        del pred
         plt.rcParams['figure.figsize'] = [16, 16]
         plt.title(fig_title)
         plt.axis('off')
         #up_img_num = num of batch 4,6,8,10,12
-        disp_img_num = up_img_num*2
-        rows = 4
-        cols = 0
+        disp_img_num = up_img_num*3
+        rows = 0
+        cols = 4
         if disp_img_num%4 !=0:
-            cols = int(disp_img_num/4) + 1
+            rows = int(disp_img_num/4) + 1
         else:
-            cols = int(disp_img_num/4)
+            rows = int(disp_img_num/4)
         print("rows/cols = ({}/{})".format(rows,cols))
 
         xlabels = ["xlabel", "(a) img","(b)img","(c)img","(d)img","(e)img","(f)img","(h)img","(i)img"]
         xlabels2 = ["xlabel2", "(a) cam","(b)cam","(c)cam","(d)cam","(e)cam","(f)cam","(h)cam","(i)cam"]
         for img_idx in range(up_img_num):
-            img_name = "{}_{}_{}_{}_{}.jpg".format(shot_num,v_idx,cur_iter,img_idx,cur_epoch)
-            norm_img_name = "{}_{}_{}_{}_{}_norm.jpg".format(shot_num,v_idx,cur_iter,img_idx,cur_epoch)           
-            img_path = os.path.join(img_dir,img_name)
-            # print("img_path : {}".format(img_path))
-            norm_img_path = os.path.join(img_dir,norm_img_name)
+            # img_name = "{}_{}_{}_{}_{}.jpg".format(shot_num,v_idx,cur_iter,img_idx,cur_epoch)
+            # norm_img_name = "{}_{}_{}_{}_{}_norm.jpg".format(shot_num,v_idx,cur_iter,img_idx,cur_epoch)           
+            # img_path = os.path.join(img_dir,img_name)
+            # # print("img_path : {}".format(img_path))
+            # norm_img_path = os.path.join(img_dir,norm_img_name)
             
-            #im_gray = (result_np_img[img_idx]).astype('uint8')
-            im_gray = (result_np_img[img_idx])            
-            norm_img = (cv2.normalize(im_gray,None,0,255,norm_type=cv2.NORM_MINMAX)).astype('uint8')
-            #im_color = cv2.applyColorMap(im_gray, cv2.COLORMAP_JET)
-            im_color = cv2.applyColorMap(norm_img, cv2.COLORMAP_JET)                        
-            cv2.imwrite(img_path,im_color)
-            cv2.imwrite(norm_img_path,norm_img)
+            # #im_gray = (result_np_img[img_idx]).astype('uint8')
+            # im_gray = (result_np_img[img_idx])            
+            # norm_img = (cv2.normalize(im_gray,None,0,255,norm_type=cv2.NORM_MINMAX)).astype('uint8')
+            # #im_color = cv2.applyColorMap(im_gray, cv2.COLORMAP_JET)
+            # im_color = cv2.applyColorMap(norm_img, cv2.COLORMAP_JET)                        
+            # # cv2.imwrite(img_path,im_color)
+            # # cv2.imwrite(norm_img_path,norm_img)
 
             #img_idx 0~7            
             xlab_idx = img_idx % 8 +1     #xlab_idx 1~8                
@@ -169,22 +176,35 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs, cur_epoch):
             ax.imshow(input_img[img_idx]) 
             ax.set_xlabel(xlabels[xlab_idx])
             ax.set_xticks([]), ax.set_yticks([])  
-            del im_gray
-            del norm_img
-            del im_color
+            # del im_gray
+            # del norm_img
+            # del im_color
             del ax
- 
+
         for img_idx in range(up_img_num):            
             sub_img_idx = img_idx + up_img_num #8~15     
                    
             ax = fig.add_subplot(rows, cols, sub_img_idx + 1)
-            
-            ax.imshow(input_img[img_idx], alpha=0.6)
+
+            ax.imshow(input_img[img_idx], alpha=0.6)  
+
+            ax.imshow(result_np_img[img_idx], cmap='jet', alpha=0.4)
+            ax.set_xlabel(xlabels2[xlab_idx])                      
+            ax.set_xticks([]), ax.set_yticks([]) 
+
+        for img_idx in range(up_img_num):            
+            sub_img_idx = img_idx + up_img_num*2 #8~15     
+                   
+            ax = fig.add_subplot(rows, cols, sub_img_idx + 1)
+            result_img = result_np_img[img_idx]
+            ax.imshow(input_img[img_idx], alpha=0.7)
+            ax.imshow(result_img, cmap='jet', alpha=0.3)
             heatmap = ax.pcolor(result_np_img[img_idx],cmap='jet')
             cbar = plt.colorbar(heatmap)
             ax.imshow(result_np_img[img_idx], cmap='jet', alpha=0.4)
             ax.set_xlabel(xlabels2[xlab_idx])                      
-            ax.set_xticks([]), ax.set_yticks([])    
+            ax.set_xticks([]), ax.set_yticks([]) 
+            del result_img   
             del heatmap
             del cbar
             # del ax

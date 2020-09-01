@@ -54,16 +54,17 @@ class KstarTV3(torch.utils.data.Dataset):
 
         for f_name in file_name_list:
             f_path = os.path.join(path_to_dir, f_name)
-            print("KstarTV::file path is {}".format(f_path))
+            # print("KstarTV::file path is {}".format(f_path))
             file_path_list.append(f_path)
             #shot_num = os.path.splitext(os.path.basename(f_name))[0]
 
 
             tmp_path_list = []
-            intlabel = -1
+            intlabel = 3
             tmp_st_idx_list = [] # spatial temporal index
             with open(f_path, "r") as f:
                 for clip_idx, path_label in enumerate(f.read().splitlines()):
+                    # print("[kstar3::path_label] {}/{}".format(path_label,clip_idx))
                     if len(path_label.split()) == 2 :
                         path, label = path_label.split()
                         for idx in range(self._num_clips):
@@ -95,7 +96,7 @@ class KstarTV3(torch.utils.data.Dataset):
                             # self._spatial_temporal_idx.append(idx)
                             # self._img_meta[clip_idx * self._num_clips + idx] = {}
                     else:
-                        print("kstar3::_construct_loader::path_label is invalid {}\n".format(path_label))
+                        print("kstar3::_construct_loader::path_label is invalid {}/{}/{}".format(path_label,clip_idx,f_path))
             self._img_path_lol.append(list(tmp_path_list))
             self._img_label.append(int(intlabel))
             self._img_spatial_temporal_idx_lol.append(list(tmp_st_idx_list))
@@ -137,7 +138,7 @@ class KstarTV3(torch.utils.data.Dataset):
         return frames
 
     def __len__(self):
-        return len(self._img_path_dic)
+        return len(self._img_path_lol)
 
     def __getitem__(self, index):
         """
@@ -239,7 +240,7 @@ class KstarTV3(torch.utils.data.Dataset):
         # )
         #print("after spatial_sampling frames len ", frames.shape)
         #print("after spatial_sampling frames len = {}".format(frames.shape[1]))
-        label = self._labels[index]
+        label = self._img_label[index]
         #frames = self.pack_pathway_output(frames) # this parts makes tensor to list of tensor
         return frames, label, index
  
