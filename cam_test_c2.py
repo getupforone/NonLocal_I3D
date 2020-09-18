@@ -134,7 +134,7 @@ def cam_view_test(test_loader, model, cfg, path_to_seq_imgs, cur_epoch):
         else:
             img_label = 'False'
         del labels
-        fig_title = "kstartv_i3d_nln_16_8_2_224_{}_{}_{}_{}_{}".format(img_label,shot_num,cur_epoch,pred,preds_idx)
+        fig_title = "kstartv2_i3d_nln_10_12_1_224_{}_{}_{}_{}_{}".format(img_label,shot_num,cur_epoch,pred,preds_idx)
         del pred
         del preds_idx 
         plt.rcParams['figure.figsize'] = [16, 16]

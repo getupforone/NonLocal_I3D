@@ -7,9 +7,10 @@ from torch.utils.data.sampler import RandomSampler
 from datasets.davis import Davis
 from datasets.kstartv import KstarTV
 from datasets.kstartv3 import KstarTV3
+from datasets.kstartv2 import KstarTV2
 
 #_DATASET_CATALOG = {"kinetics": Kinetics, "davis": Davis}
-_DATASET_CATALOG = {"davis": Davis,"kstartv": KstarTV,"kstartv3": KstarTV3}
+_DATASET_CATALOG = {"davis": Davis,"kstartv": KstarTV,"kstartv3": KstarTV3,"kstartv2": KstarTV2}
 
 def construct_loader(cfg, split):
     assert split in ["train", "val", "test"]
@@ -26,7 +27,7 @@ def construct_loader(cfg, split):
     elif split in ["test"]:
         dataset_name = cfg.TEST.DATASET
         batch_size = int(cfg.TEST.BATCH_SIZE / cfg.NUM_GPUS)
-        shuffle = False
+        shuffle = True
         drop_last = False
     assert (
         dataset_name in _DATASET_CATALOG.keys()
