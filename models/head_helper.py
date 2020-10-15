@@ -52,9 +52,9 @@ class ResNetBasicHead(nn.Module):
 
         if self.isCamTest == True:
             fc_w = self.projection.weight
-            print("fc_w dim = {}".format(fc_w.shape))
-            print("fc_w[0] = {}".format(fc_w[0]))
-            print("head : dim1 = {}".format(x.shape))
+            # print("fc_w dim = {}".format(fc_w.shape))
+            # print("fc_w[0] = {}".format(fc_w[0]))
+            # print("head : dim1 = {}".format(x.shape))
 
         if not self.training:
             x = self.act(x)

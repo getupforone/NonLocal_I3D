@@ -75,7 +75,7 @@ def main():
     #args = parse_args()
     #cfg  = load_config(args)
     cfg = get_cfg()
-    cfg.merge_from_file('config/configs/kstartv/I3D_NLN_8x8_R50_KSTARTV3_10_12_1_16.yaml')
+    cfg.merge_from_file('config/configs/kstartv/I3D_NLN_8x8_R50_KSTARTV2_10_12_1_16.yaml')
     cfg.TEST.BATCH_SIZE = 1
     cfg.NUM_GPUS = 1
     cfg.TEST.IS_CAM_TEST = True

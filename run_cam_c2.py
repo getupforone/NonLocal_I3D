@@ -9,7 +9,7 @@ from config.defaults import get_cfg
 
 from test_net import test
 from train_net import train
-from cam_test2 import cam_test2
+# from cam_test2 import cam_test2
 from cam_test_c2 import cam_test_c2
 
 
@@ -74,9 +74,9 @@ def load_config(args):
 
 def main():
     #args = parse_args()
-    #cfg  = load_config(args)
+    #cfg  = load_config(args)I3D_NLN_8x8_R50_KSTARTV2_10_12_1_16 
     cfg = get_cfg()
-    cfg.merge_from_file('config/configs/kstartv/I3D_NLN_8x8_R50_KSTARTV2_10_12_1_16.yaml')
+    cfg.merge_from_file('config/configs/kstartv/I3D_NLN_8x8_R50_KSTARTV2_12_8_1_32_cam.yaml')
     cfg.TEST.BATCH_SIZE = 1
     cfg.NUM_GPUS = 1
     cfg.TEST.IS_CAM_TEST = True
@@ -90,7 +90,7 @@ def main():
                 nprocs=cfg.NUM_GPUS,
                 args=(
                     cfg.NUM_GPUS,
-                    cam_test,
+                    cam_test_c2,
                     "tcp://localhost:9999",
                     cfg.SHARD_ID,
                     cfg.NUM_SHARDS,
@@ -102,7 +102,7 @@ def main():
 
         else:
             print("single node used")
-            cam_test2(cfg=cfg)
+            cam_test_c2(cfg=cfg)
 
 if __name__=="__main__":
 
